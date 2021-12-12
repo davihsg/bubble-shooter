@@ -1,1 +1,1 @@
-# bubble-shooter
+# Bubble Shooter
