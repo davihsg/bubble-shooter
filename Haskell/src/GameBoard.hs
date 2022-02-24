@@ -19,5 +19,9 @@ initialState::BubbleShooter
 initialState = Game
     { gameState = Menu
     , bubbles = []
-    , shooter = Shooter{xS = 0, yS = 0}
+    , shooter = Shooter
+        {xS = 0
+       , yS = 0
+       , pictureS = Circle 60
+        }
     }

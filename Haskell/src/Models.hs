@@ -21,5 +21,5 @@ data Bubble = Bubble
 data Shooter = Shooter
     { xS     :: Int
     , yS     :: Int
-    -- ADD SHOOTER PICTURE
+    , pictureS :: Picture 
     } deriving (Show, Eq)
