@@ -10,8 +10,7 @@ render game = translate (convertToFloat width * (-0.5)) (convertToFloat height *
     where frame = pictures [mkShooter $ shooter game]
 
 mkShooter::Shooter -> Picture
-mkShooter shooter = translate x y shooterPicture
+mkShooter shooter = translate x y (shooterPicture shooter)
     where
-        shooterPicture = color black $ pictures [circleSolid 40, translate 0 40 $ rectangleSolid 50 40]
         x = x_s shooter
         y = y_s shooter

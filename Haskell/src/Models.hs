@@ -2,6 +2,8 @@ module Models where
 
 import Graphics.Gloss
 
+type Angle = (Float, Float)
+
 data GameState = 
     Playing | Menu
     deriving Show
@@ -21,4 +23,5 @@ data Bubble = Bubble
 data Shooter = Shooter
     { x_s     :: Float
     , y_s     :: Float
+    , angle_s :: Angle
     } deriving (Show, Eq)
