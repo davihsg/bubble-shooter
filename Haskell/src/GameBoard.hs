@@ -16,13 +16,14 @@ fps = 30
 
 initialState::BubbleShooter
 initialState = Game
-    { gameState = Menu
+    { gameState = Playing
     , bubbles = []
-    , shooter = getShooter
+    , shooter = getInitialShooter
     }
 
-getShooter::Shooter
-getShooter = Shooter
-    { x_s = convertToFloat width / 2
+getInitialShooter::Shooter
+getInitialShooter = Shooter
+    { x_s = 350
     , y_s = 50
+    , angle_s = (0, 0)
     }
