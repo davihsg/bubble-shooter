@@ -13,13 +13,12 @@ data BubbleShooter = Game
     } --deriving Show
 
 data Bubble = Bubble
-    { x     :: Int
-    , y     :: Int
-    , color :: Color
+    { x_b     :: Float
+    , y_b     :: Float
+    , color_b :: Color
     } deriving (Show, Eq)
 
 data Shooter = Shooter
-    { xS     :: Int
-    , yS     :: Int
-    -- ADD SHOOTER PICTURE
+    { x_s     :: Float
+    , y_s     :: Float
     } deriving (Show, Eq)

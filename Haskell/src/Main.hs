@@ -7,6 +7,6 @@ import EventHandler
 import Update
 
 window::Display
-window = InWindow "Bubble Shooter" (width, height) (xOffset, yOffset)
+window = InWindow "Bubble Shooter" (width, height) (10, 10)
 
 main = play window background fps initialState render eventHandler update
