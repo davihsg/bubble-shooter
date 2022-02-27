@@ -1,5 +1,6 @@
 module Update where
-
+import Util
+import Graphics.Gloss
 import Models
 import Util
 import Graphics.Gloss

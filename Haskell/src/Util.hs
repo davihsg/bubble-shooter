@@ -27,4 +27,4 @@ bubbleShooterPicture::Bubble -> Angle -> Picture
 bubbleShooterPicture bubble angle_bubble = rotate (getAngle $ angle_bubble) $ color(color_b bubble) $ pictures [translate (x_b bubble) (y_b bubble) $ circleSolid 15]
 
 bubblePicture::Bubble -> Picture
-bubblePicture bubble = color(color_b bubble) $ pictures [translate (x_b bubble) (y_b bubble) $ circleSolid 15]
+bubblePicture bubble = color(color_b bubble) $ pictures [translate (x_b bubble) (y_b bubble) $ circleSolid 20]
