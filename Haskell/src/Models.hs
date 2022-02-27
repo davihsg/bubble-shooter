@@ -12,6 +12,7 @@ data BubbleShooter = Game
     {   gameState :: GameState
       , bubbles   :: [Bubble]
       , shooter   :: Shooter
+      , shooterList :: [Bubble]
     } --deriving Show
 
 data Bubble = Bubble

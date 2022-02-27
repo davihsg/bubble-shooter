@@ -19,6 +19,7 @@ initialState = Game
     { gameState = Playing
     , bubbles = []
     , shooter = getInitialShooter
+    , shooterList = []
     }
 
 getInitialShooter::Shooter
