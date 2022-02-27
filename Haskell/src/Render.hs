@@ -6,7 +6,8 @@ import Models
 import Util
 import Update
 
-render::BubbleShooter -> Picture
+
+render::BubbleShooter -> Picture 
 render game = translate (convertToFloat width * (-0.5)) (convertToFloat height * (-0.5)) frame
     where frame = pictures ([mkShooter $ shooter game, mkBubble $ Bubble {x_b = convertToFloat 10, y_b = convertToFloat 30, color_b = blue}] ++ (map mkBubble (bubbles game)))
 

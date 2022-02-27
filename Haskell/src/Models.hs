@@ -26,4 +26,3 @@ data Shooter = Shooter
     , y_s     :: Float
     , angle_s :: Angle
     } deriving (Show, Eq)
-
