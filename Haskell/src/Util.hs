@@ -18,3 +18,13 @@ adjust x
 
 shooterPicture::Shooter -> Picture
 shooterPicture _shooter = rotate (getAngle $ angle_s _shooter) $ color black $ pictures [circleSolid 40, translate 0 30 $ rectangleSolid (60) (30)]
+
+takeHeadOfBubbleList::[Bubble] -> Bubble
+takeHeadOfBubbleList list = (head list)
+
+
+bubbleShooterPicture::Bubble -> Angle -> Picture
+bubbleShooterPicture bubble angle_bubble = rotate (getAngle $ angle_bubble) $ color(color_b bubble) $ pictures [translate (x_b bubble) (y_b bubble) $ circleSolid 15]
+
+bubblePicture::Bubble -> Picture
+bubblePicture bubble = color(color_b bubble) $ pictures [translate (x_b bubble) (y_b bubble) $ circleSolid 20]

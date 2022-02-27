@@ -12,6 +12,7 @@ data BubbleShooter = Game
     {   gameState :: GameState
       , bubbles   :: [Bubble]
       , shooter   :: Shooter
+      , shooterList :: [Bubble]
     } --deriving Show
 
 data Bubble = Bubble
@@ -25,3 +26,4 @@ data Shooter = Shooter
     , y_s     :: Float
     , angle_s :: Angle
     } deriving (Show, Eq)
+
