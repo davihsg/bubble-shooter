@@ -41,4 +41,6 @@ offMap _shooter
 		(x, y) = bubblePos $ bubbleShoot $ nextShoot _shooter
 
 resetShooter::Shooter -> Shooter
-resetShooter _shooter = _shooter {nextShoot = newShoot}
+resetShooter _shooter = _shooter
+	{ onShoot = False
+	, nextShoot = newShoot}

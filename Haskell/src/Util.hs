@@ -17,7 +17,15 @@ adjust x
     | otherwise = 0
 
 shooterPicture::Shooter -> Picture
-shooterPicture _shooter = rotate (getAngle $ shooterAngle _shooter) $ color black $ pictures [bubblePicture $ bubbleShoot (nextShoot _shooter), circleSolid 40, translate 0 30 $ rectangleSolid (60) (30)]
+shooterPicture _shooter = 
+    pictures ([shootPicture _shooter (getAngle $ shooterAngle _shooter)] ++ [rotate (getAngle $ shooterAngle _shooter) $ color black $ pictures [circleSolid 40, translate 0 30 $ rectangleSolid (60) (30)]])
+
+shootPicture::Shooter -> Float -> Picture
+shootPicture _shooter angle
+    | onShoot _shooter == False = rotate angle b
+    | otherwise = b
+    where
+        b = bubblePicture $ bubbleShoot $ nextShoot _shooter
 
 bubblePicture::Bubble -> Picture
 bubblePicture bubble = color (bubbleColor bubble) $ translate x y $ circleSolid 20
@@ -46,6 +54,6 @@ randomNumber = 1
 
 newShoot::Shoot
 newShoot = Shoot
-    { bubbleShoot = randomBubble 0 20
+    { bubbleShoot = randomBubble 0 40
     , shootVel = (0, 0)
     }
