@@ -17,9 +17,14 @@ fps = 30
 initialState::BubbleShooter
 initialState = Game
     { gameState = Playing
+    , lastClick = (1, 1)
+    , ballRun = False
+    , ballloc =  (175, 50)
+    , ballvel =  1
     , bubbles = getMapBubbles
     , shooter = getInitialShooter
     , shooterList = []
+    , time    = 0
     }
 
 getInitialShooter::Shooter
@@ -28,6 +33,7 @@ getInitialShooter = Shooter
     , y_s = 50
     , angle_s = (0, 0)
     }
+
 getMapBubbles::[Bubble] 
 getMapBubbles = generateMatrix 10 340
 

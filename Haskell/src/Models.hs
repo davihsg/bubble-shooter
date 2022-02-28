@@ -7,12 +7,18 @@ type Angle = (Float, Float)
 data GameState = 
     Playing | Menu
     deriving Show
-
+    
+    
 data BubbleShooter = Game
     {   gameState :: GameState
+      , lastClick :: (Float, Float)
+      , ballRun :: Bool
+      , ballloc   :: (Float, Float)
+      , ballvel   :: Float
       , bubbles   :: [Bubble]
       , shooter   :: Shooter
       , shooterList :: [Bubble]
+      , time      :: Float
     } --deriving Show
 
 data Bubble = Bubble
@@ -26,3 +32,4 @@ data Shooter = Shooter
     , y_s     :: Float
     , angle_s :: Angle
     } deriving (Show, Eq)
+    
