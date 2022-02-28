@@ -16,7 +16,7 @@ fps = 30
 
 initialState::BubbleShooter
 initialState = Game
-    { gameState = Playing
+    { gameState = Menu
     , lastClick = (1, 1)
     , ballRun = False
     , ballloc =  (175, 50)

@@ -16,10 +16,20 @@ eventHandler (EventMotion (x, y)) game@Game {gameState = Playing} =
 
 eventHandler (EventKey (MouseButton LeftButton) Down _ (x', y')) game = game{lastClick=(x', y'), ballRun=True}
 
+--Down = a tecla está pressionada
+eventHandler (EventKey (SpecialKey KeyEnter) Down _ _  ) game@ Game { gameState = Menu} =
+   game { gameState = Playing }
+
+eventHandler (EventKey (Char 'p') Down _ _  ) game@ Game { gameState = Playing} =
+   game { gameState = Menu}
+
 eventHandler _ game = game
 
 updateRotation::Shooter -> Angle -> Shooter
 updateRotation shooter (a, b) = shooter {angle_s = (a, b + 300)}
+
+
+
 
 
 
