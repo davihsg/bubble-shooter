@@ -6,7 +6,7 @@ import Models
 convertToFloat::Int->Float
 convertToFloat x = fromIntegral x :: Float
 
-getAngle::Angle -> Float
+getAngle::Tuple -> Float
 getAngle (0, _) = 0
 getAngle (x, y) = - ((atan (y / x) * 180 / pi) + adjust x)
 
@@ -16,15 +16,52 @@ adjust x
     | x > 0 = 270
     | otherwise = 0
 
-shooterPicture::Shooter -> Picture
-shooterPicture _shooter = rotate (getAngle $ angle_s _shooter) $ color black $ pictures [circleSolid 40, translate 0 30 $ rectangleSolid (60) (30)]
+randomBubble::Float -> Float -> Bubble
+randomBubble x y = Bubble
+    { bubblePos = (x, y)
+    , bubbleColor = randomColor
+    }
 
-takeHeadOfBubbleList::[Bubble] -> Bubble
-takeHeadOfBubbleList list = (head list)
+randomColor::Color
+randomColor 
+    | c == 1  = dark red
+    | c == 2  = dark blue
+    | c == 3  = light green
+    | c == 4  = yellow
+    | c == 5  = cyan
+    where
+        c = randomNumber
 
+randomNumber::Int
+randomNumber = 1
+-- TODO
 
-bubbleShooterPicture::Bubble -> Angle -> Picture
-bubbleShooterPicture bubble angle_bubble = rotate (getAngle $ angle_bubble) $ color(color_b bubble) $ pictures [translate (x_b bubble) (y_b bubble) $ circleSolid 15]
+newShoot::Shoot
+newShoot = Shoot
+    { bubbleShoot = randomBubble 0 40
+    , shootVel = (0, 0)
+    }
 
-bubblePicture::Bubble -> Picture
-bubblePicture bubble = color(color_b bubble) $ pictures [translate (x_b bubble) (y_b bubble) $ circleSolid 20]
+getInitialShooter::Shooter
+getInitialShooter = Shooter
+    { shooterPos   = (350, 50)
+    , shooterAngle = (0, 0)
+    , onShoot      = False
+    , nextShoot    = newShoot
+    }
+
+getMapBubbles::[Bubble] 
+getMapBubbles = generateMatrix 10 340
+
+generateMatrix::Float -> Float -> [Bubble]
+generateMatrix x 200 = generateLine x 200 
+generateMatrix x y = generateLine x y  ++ generateMatrix x (y - 20)
+
+generateLine::Float -> Float -> [Bubble]
+generateLine 330 y = [randomBubble 330 y]
+generateLine x y = [randomBubble x y] ++ (generateLine (x+20) y)
+
+getVel::Tuple -> Tuple
+getVel (x, y)
+    | x < 0 = (-1, - (y / x))
+    | otherwise = (1, y / x)

@@ -6,11 +6,9 @@ import Models
 import Util
 import Update
 
-
 render::BubbleShooter -> Picture 
-render game @ Game {gameState = Playing} = translate (convertToFloat width * (-0.5)) (convertToFloat height * (-0.5)) frame
-    where frame = pictures ([mkShooter $ shooter game, mkBubble $ Bubble {x_b = x, y_b = y, color_b = blue}] ++ (map mkBubble (bubbles game)))
-          (x, y) = ballloc game
+render game @ Game {gameState = Playing } = translate (convertToFloat width * (-0.5)) (convertToFloat height * (-0.5)) frame
+    where frame = pictures ([mkShooter $ shooter game] ++ (map mkBubble (bubbles game))) 
           
 render game @ Game { gameState = Menu } =
     pictures [ mkText black "Bubble Shooter" 0.5 0.5 (-210) 200
@@ -22,17 +20,29 @@ render game @ Game { gameState = Menu } =
 mkShooter::Shooter -> Picture
 mkShooter shooter = translate x y (shooterPicture shooter)
     where
-        x = x_s shooter
-        y = y_s shooter
-
+        (x, y) = shooterPos shooter
 
 mkBubble::Bubble -> Picture
 mkBubble bubble = translate x y (bubblePicture bubble)
     where
-        y = y_b bubble
-        x = x_b bubble
+        (x, y) = bubblePos bubble
 
 mkText :: Color -> String -> Float -> Float -> Float -> Float -> Picture
 mkText col text x y x' y' = translate x' y' $ scale x y $ color col $ Text text
-        
 
+
+shooterPicture::Shooter -> Picture
+shooterPicture _shooter = 
+    pictures ([shootPicture _shooter (getAngle $ shooterAngle _shooter)] ++ [rotate (getAngle $ shooterAngle _shooter) $ color black $ pictures [circleSolid 40, translate 0 30 $ rectangleSolid (60) (30)]])
+
+shootPicture::Shooter -> Float -> Picture
+shootPicture _shooter angle
+    | onShoot _shooter == False = rotate angle b
+    | otherwise = b
+    where
+        b = bubblePicture $ bubbleShoot $ nextShoot _shooter
+
+bubblePicture::Bubble -> Picture
+bubblePicture bubble = color (bubbleColor bubble) $ translate x y $ circleSolid 20
+    where
+        (x, y) = bubblePos bubble
