@@ -17,21 +17,17 @@ fps = 30
 initialState::BubbleShooter
 initialState = Game
     { gameState = Playing
-    , lastClick = (1, 1)
-    , ballRun = False
-    , ballloc =  (175, 50)
-    , ballvel =  1
     , bubbles = getMapBubbles
     , shooter = getInitialShooter
-    , shooterList = []
     , time    = 0
     }
 
 getInitialShooter::Shooter
 getInitialShooter = Shooter
-    { x_s = 350
-    , y_s = 50
-    , angle_s = (0, 0)
+    { shooterPos   = (350, 50)
+    , shooterAngle = (0, 0)
+    , onShoot      = False
+    , nextShoot    = newShoot
     }
 
 getMapBubbles::[Bubble] 
@@ -39,27 +35,8 @@ getMapBubbles = generateMatrix 10 340
 
 generateMatrix::Float -> Float -> [Bubble]
 generateMatrix x 200 = generateLine x 200 
-generateMatrix x y = generateLine x y  ++ generateMatrix x (y-20)
+generateMatrix x y = generateLine x y  ++ generateMatrix x (y - 20)
 
 generateLine::Float -> Float -> [Bubble]
-generateLine 330 y = [Bubble{x_b = 330, y_b = y, color_b = color}]
-    where
-        color = randomColor
-generateLine x y = [Bubble{x_b = x, y_b = y, color_b = color}] ++ (generateLine (x+20) y)
-    where
-        color = randomColor
-
-randomColor::Color
-randomColor 
-    | c == 1 = (dark red)
-    | c == 2  = (dark blue)
-    | c == 3  = (light green)
-    | c == 4 = yellow
-    | c == 5  = cyan
-    where
-        c = randomNumber
-
-
-randomNumber::Int
-randomNumber = 1
--- To Do
+generateLine 330 y = [randomBubble 330 y]
+generateLine x y = [randomBubble x y] ++ (generateLine (x+20) y)
