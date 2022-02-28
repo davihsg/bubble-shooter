@@ -14,6 +14,13 @@ eventHandler (EventMotion (x, y)) game@Game {gameState = Playing} =
 eventHandler (EventKey (MouseButton LeftButton) Down _ (x, y)) game@Game {gameState = Playing} =
     game {shooter = shootBubble (shooter game) (x, y)}
 
+--Down = a tecla está pressionada
+eventHandler (EventKey (SpecialKey KeyEnter) Down _ _  ) game@ Game { gameState = Menu} =
+   game { gameState = Playing }
+
+eventHandler (EventKey (Char 'p') Down _ _  ) game@ Game { gameState = Playing} =
+   game { gameState = Menu}
+
 eventHandler _ game = game
 
 updateRotation::Shooter -> Tuple -> Shooter
@@ -29,7 +36,3 @@ shoot _shooter@Shooter {onShoot = False} =
         (x, y) = shooterAngle _shooter
         
 shoot _shooter@Shooter {onShoot = True} = _shooter
-
-
-
-
