@@ -14,12 +14,13 @@ eventHandler (EventMotion (x, y)) game@Game {gameState = Playing} =
 eventHandler (EventKey (MouseButton LeftButton) Down _ (x, y)) game@Game {gameState = Playing} =
     game {shooter = shootBubble (shooter game) (x, y)}
 
---Down = a tecla está pressionada
 eventHandler (EventKey (SpecialKey KeyEnter) Down _ _  ) game@ Game { gameState = Menu} =
-   game { gameState = Playing }
+    game { gameState = Playing
+         , bubbles = getMapBubbles
+         , shooter = getInitialShooter }
 
 eventHandler (EventKey (Char 'p') Down _ _  ) game@ Game { gameState = Playing} =
-   game { gameState = Menu}
+    game { gameState = Menu}
 
 eventHandler _ game = game
 
@@ -27,12 +28,7 @@ updateRotation::Shooter -> Tuple -> Shooter
 updateRotation shooter (x, y) = shooter {shooterAngle = (x, y + 300)}
 
 shootBubble::Shooter -> Tuple -> Shooter
-shootBubble _shooter (x, y) = shoot $ updateRotation _shooter (x, y)
-
-shoot::Shooter -> Shooter
-shoot _shooter@Shooter {onShoot = False} =
-    _shooter {nextShoot = (nextShoot _shooter){shootVel = (1, y / x)}}
-    where
-        (x, y) = shooterAngle _shooter
+shootBubble _shooter@Shooter {onShoot = False} (x, y) =
+    _shooter {onShoot = True, nextShoot = (nextShoot _shooter){shootVel = getVel (x, y + 300)}}
         
-shoot _shooter@Shooter {onShoot = True} = _shooter
+shootBubble _shooter@Shooter {onShoot = True} _ = _shooter

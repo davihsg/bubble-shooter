@@ -16,22 +16,6 @@ adjust x
     | x > 0 = 270
     | otherwise = 0
 
-shooterPicture::Shooter -> Picture
-shooterPicture _shooter = 
-    pictures ([shootPicture _shooter (getAngle $ shooterAngle _shooter)] ++ [rotate (getAngle $ shooterAngle _shooter) $ color black $ pictures [circleSolid 40, translate 0 30 $ rectangleSolid (60) (30)]])
-
-shootPicture::Shooter -> Float -> Picture
-shootPicture _shooter angle
-    | onShoot _shooter == False = rotate angle b
-    | otherwise = b
-    where
-        b = bubblePicture $ bubbleShoot $ nextShoot _shooter
-
-bubblePicture::Bubble -> Picture
-bubblePicture bubble = color (bubbleColor bubble) $ translate x y $ circleSolid 20
-    where
-        (x, y) = bubblePos bubble
-
 randomBubble::Float -> Float -> Bubble
 randomBubble x y = Bubble
     { bubblePos = (x, y)
@@ -40,9 +24,9 @@ randomBubble x y = Bubble
 
 randomColor::Color
 randomColor 
-    | c == 1  = (dark red)
-    | c == 2  = (dark blue)
-    | c == 3  = (light green)
+    | c == 1  = dark red
+    | c == 2  = dark blue
+    | c == 3  = light green
     | c == 4  = yellow
     | c == 5  = cyan
     where
@@ -57,3 +41,27 @@ newShoot = Shoot
     { bubbleShoot = randomBubble 0 40
     , shootVel = (0, 0)
     }
+
+getInitialShooter::Shooter
+getInitialShooter = Shooter
+    { shooterPos   = (350, 50)
+    , shooterAngle = (0, 0)
+    , onShoot      = False
+    , nextShoot    = newShoot
+    }
+
+getMapBubbles::[Bubble] 
+getMapBubbles = generateMatrix 10 340
+
+generateMatrix::Float -> Float -> [Bubble]
+generateMatrix x 200 = generateLine x 200 
+generateMatrix x y = generateLine x y  ++ generateMatrix x (y - 20)
+
+generateLine::Float -> Float -> [Bubble]
+generateLine 330 y = [randomBubble 330 y]
+generateLine x y = [randomBubble x y] ++ (generateLine (x+20) y)
+
+getVel::Tuple -> Tuple
+getVel (x, y)
+    | x < 0 = (-1, - (y / x))
+    | otherwise = (1, y / x)
