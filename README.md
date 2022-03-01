@@ -17,7 +17,7 @@ $ cd bubble-shooter-main
 
 ### Para a funcionalidade da aplicação em Haskell é necessário:
 
-- Ter em sua máquina a linguagem [haskell , Cabal e GHC](https://www.haskell.org/downloads/).
+- Ter em sua máquina [haskell , Cabal e GHC](https://www.haskell.org/downloads/).
 - Ter em sua máquina o Haskell plataform funcionando : 
         ```bash
         $ sudo apt-get install haskell-platform
@@ -25,12 +25,14 @@ $ cd bubble-shooter-main
 - Tenha um display de dimensões maiores ou iguais há 700 de altura e 700 de largura.
 
 Em primeiro lugar, é preciso que se instale o cabal executável : 
+
         ```bash
         $ cabal update
         $ cabal install Cabal cabal-install
         ```
 
 Após isso é necessário a lib `gloss` do `cabal` que pode ser obtida utilizando:
+
         ```bash
         $ cabal install gloss
         ```
@@ -41,6 +43,7 @@ Agora será necessário entrar no diretório Haskell:
         $ cd haskell
         ```
 Por fim para rodar o jogo e instalar as dependências faltantes execute:
+
         ```bash
         $ cabal run
         ```
