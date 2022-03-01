@@ -7,13 +7,13 @@ A realização do projeto foi feita para a disciplina Paradigmas de Linguagem de
 Clone o repositório
 
 ```bash
-git clone https://github.com/davihsg/bubble-shooter.git
+$ git clone https://github.com/davihsg/bubble-shooter.git
 ```
 
 Entre no repositório
 
 ```bash
-cd bubble-shooter
+$ cd bubble-shooter
 ```
 
 ### Para a funcionalidade da aplicação em Haskell é necessário
@@ -22,7 +22,7 @@ cd bubble-shooter
 - Ter em sua máquina o Haskell plataform funcionando :
 
     ```bash
-    sudo apt-get install haskell-platform
+    $ sudo apt-get install haskell-platform
     ```
 
 - Tenha um display de dimensões maiores ou iguais há 700 de altura e 700 de largura.
