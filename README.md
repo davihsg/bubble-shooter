@@ -1,5 +1,4 @@
 # Bubble Shooter
-# Bubble Shooter
 
 Implementação do Jogo Bubble Shooter 
 
