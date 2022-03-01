@@ -19,6 +19,7 @@ $ cd bubble-shooter-main
 
 - Ter em sua máquina [haskell , Cabal e GHC](https://www.haskell.org/downloads/).
 - Ter em sua máquina o Haskell plataform funcionando : 
+
         ```bash
         $ sudo apt-get install haskell-platform
         ```
