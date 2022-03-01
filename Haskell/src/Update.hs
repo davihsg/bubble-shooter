@@ -37,7 +37,7 @@ updateShooter _shooter
 offMap :: Shooter -> Bool
 offMap _shooter
     | onShoot _shooter == False = False
-    | x > 400 || x < -400 || y > 800 || y < 0 = True
+    | x > 400 || x < -400 || y > 800 || y < -50 = True
     | otherwise = False  
     where 
         (x, y) = bubblePos $ bubbleShoot $ nextShoot _shooter
