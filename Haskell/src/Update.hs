@@ -8,7 +8,7 @@ update = updateBubble
 
 updateBubble :: Float -> BubbleShooter -> BubbleShooter
 updateBubble seconds game@Game {gameState = Playing} = game
-    { shooter = updateShooter (shooter game)
+    {bubbles = checkBubbles game, shooter = updateShooter (shooter game)
     , time = updateTime game}
 
 updateBubble _ game@Game {gameState = Menu} = game
@@ -46,3 +46,14 @@ resetShooter::Shooter -> Shooter
 resetShooter _shooter = _shooter
     { onShoot = False
     , nextShoot = newShoot}
+  
+-- Em desenvolvimento
+checkBubbles ::  BubbleShooter -> [Bubble]
+checkBubbles game =  filter(\bubble -> not (ishit (bubblePos bubble) ( shooterPos s))) (bubbles game)
+	     where 
+		s = shooter game 
+		  
+ishit :: Tuple -> Tuple -> Bool
+ishit (b1x, b1y) (b2x, b2y) =
+  b1x < b2x &&
+  b1x  > b2x && b1y < b2y  && b1y > b2y
