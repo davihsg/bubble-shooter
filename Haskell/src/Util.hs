@@ -1,3 +1,4 @@
+{-# OPTIONS_GHC -Wno-incomplete-patterns #-}
 module Util where
 
 import Graphics.Gloss
@@ -24,11 +25,11 @@ randomBubble x y = Bubble
 
 randomColor::Color
 randomColor 
-    | c == 1  = dark red
-    | c == 2  = dark blue
-    | c == 3  = light green
-    | c == 4  = yellow
-    | c == 5  = cyan
+    | c == 1 = dark red
+    | c == 2 = dark blue
+    | c == 3 = light green
+    | c == 4 = yellow
+    | otherwise = cyan
     where
         c = randomNumber
 
@@ -64,4 +65,4 @@ generateLine x y = [randomBubble x y] ++ (generateLine (x+20) y)
 getVel::Tuple -> Tuple
 getVel (x, y) = (x / k, y / k)
     where
-        k = sqrt (((x * x) + (y * y)) / 225)
+        k = sqrt (((x * x) + (y * y)) / 49)
