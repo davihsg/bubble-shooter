@@ -1,5 +1,5 @@
 module Models where
-
+    
 import Graphics.Gloss
 
 type Tuple = (Float, Float)
@@ -26,8 +26,8 @@ data Shooter = Shooter
     } deriving (Show, Eq)
 
 data BubbleShooter = Game
-    {   gameState   :: GameState
-      , bubbles     :: [Bubble]
-      , shooter     :: Shooter
-      , time        :: Float
+    { gameState   :: GameState
+    , bubbles     :: [Bubble]
+    , shooter     :: Shooter
+    , time        :: Float
     }

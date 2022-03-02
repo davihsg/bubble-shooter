@@ -1,4 +1,3 @@
-{-# OPTIONS_GHC -Wno-incomplete-patterns #-}
 module Util where
 
 import Graphics.Gloss
@@ -39,7 +38,7 @@ randomNumber = 1
 
 newShoot::Shoot
 newShoot = Shoot
-    { bubbleShoot = randomBubble 0 45
+    { bubbleShoot = randomBubble 350 90
     , shootVel = (0, 0)
     }
 
@@ -52,15 +51,17 @@ getInitialShooter = Shooter
     }
 
 getMapBubbles::[Bubble] 
-getMapBubbles = generateMatrix 10 340
+getMapBubbles = generateMatrix 20 680
 
 generateMatrix::Float -> Float -> [Bubble]
-generateMatrix x 200 = generateLine x 200 
-generateMatrix x y = generateLine x y  ++ generateMatrix x (y - 20)
+generateMatrix x y 
+    | y < 400 = []
+    | otherwise = generateLine x y ++ generateMatrix x (y - 40)
 
 generateLine::Float -> Float -> [Bubble]
-generateLine 330 y = [randomBubble 330 y]
-generateLine x y = [randomBubble x y] ++ (generateLine (x+20) y)
+generateLine x y
+    | x > 680 = []
+    | otherwise = [randomBubble x y] ++ (generateLine (x + 40) y)
 
 getVel::Tuple -> Tuple
 getVel (x, y) = (x / k, y / k)

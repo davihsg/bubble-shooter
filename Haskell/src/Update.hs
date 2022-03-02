@@ -1,4 +1,5 @@
 module Update where
+
 import Util
 import Graphics.Gloss
 import Models
@@ -38,7 +39,7 @@ updateShoot _shoot =
 offMap :: Shooter -> Bool
 offMap _shooter
     | onShoot _shooter == False = False
-    | x > 400 || x < -400 || y > 800 || y < -50 = True
+    | x > 800 || x < -50 || y > 800 || y < -50 = True
     | otherwise = False  
     where 
         (x, y) = bubblePos $ bubbleShoot $ nextShoot _shooter
@@ -49,12 +50,12 @@ resetShooter _shooter = _shooter
     , nextShoot = newShoot}
   
 -- Em desenvolvimento
-checkBubbles ::  BubbleShooter -> [Bubble]
-checkBubbles game =  filter(\bubble -> not (ishit (bubblePos bubble) ( shooterPos s))) (bubbles game)
-	     where 
-		s = shooter game 
-		  
-ishit :: Tuple -> Tuple -> Bool
-ishit (b1x, b1y) (b2x, b2y) =
-  b1x < b2x &&
-  b1x  > b2x && b1y < b2y  && b1y > b2y
+checkBubbles :: BubbleShooter -> [Bubble]
+checkBubbles game = filter (\b -> not (isHit (bubblePos b) (bubblePos $ bubbleShoot $ nextShoot s))) (bubbles game)
+    where
+        s = shooter game
+
+isHit :: Tuple -> Tuple -> Bool
+isHit (b1x, b1y) (b2x, b2y) = dis < 48
+    where
+        dis = sqrt ((b1x - b2x) * (b1x - b2x) + (b1y - b2y) * (b1y - b2y))
