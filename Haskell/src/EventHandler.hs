@@ -28,7 +28,16 @@ updateRotation::Shooter -> Tuple -> Shooter
 updateRotation shooter (x, y) = shooter {shooterAngle = (x, y + 300)}
 
 shootBubble::Shooter -> Tuple -> Shooter
-shootBubble _shooter@Shooter {onShoot = False} (x, y) =
-    _shooter {onShoot = True, nextShoot = (nextShoot _shooter){shootVel = getVel (x, y + 300)}}
+shootBubble _shooter@Shooter {onShoot = False} (x, y) = (updateRotation _shooter (x, y))
+    {onShoot = True
+    , nextShoot = (nextShoot _shooter)
+        { bubbleShoot = (bubbleShoot (nextShoot _shooter)) 
+            { bubblePos = (cos angle * 45, sin angle * 45)}
+        , shootVel = getVel (x, y + 300)
+        }
+    }
+    where
+        (x', y') = shooterAngle _shooter
+        angle = (90 - getAngle (x', y')) * pi / 180
         
 shootBubble _shooter@Shooter {onShoot = True} _ = _shooter

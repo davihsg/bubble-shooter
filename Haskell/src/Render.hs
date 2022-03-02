@@ -30,7 +30,6 @@ mkBubble bubble = translate x y (bubblePicture bubble)
 mkText :: Color -> String -> Float -> Float -> Float -> Float -> Picture
 mkText col text x y x' y' = translate x' y' $ scale x y $ color col $ Text text
 
-
 shooterPicture::Shooter -> Picture
 shooterPicture _shooter = 
     pictures ([shootPicture _shooter (getAngle $ shooterAngle _shooter)] ++ [rotate (getAngle $ shooterAngle _shooter) $ color black $ pictures [circleSolid 40, translate 0 30 $ rectangleSolid (60) (30)]])
