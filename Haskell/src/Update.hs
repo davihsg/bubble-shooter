@@ -21,23 +21,24 @@ updateTime game = t + 1
 updateShooter:: Shooter -> Shooter
 updateShooter _shooter 
     | offMap _shooter = resetShooter _shooter
-    | otherwise = _shooter {
-        nextShoot = s {
-            bubbleShoot = b {bubblePos = (x', y')}
-            }
-        }
+    | onShoot _shooter == False = _shooter 
+    | otherwise = _shooter
+    { nextShoot = updateShoot (nextShoot _shooter)}
+
+updateShoot::Shoot -> Shoot
+updateShoot _shoot =
+    _shoot { bubbleShoot = b {bubblePos = (x', y')}}
     where
-        (velx, vely) = shootVel (nextShoot _shooter)
-        (x, y) = bubblePos $ bubbleShoot $ nextShoot _shooter
+        (velx, vely) = shootVel _shoot
+        (x, y) = bubblePos $ bubbleShoot _shoot
         x' = x + velx
         y' = y + vely
-        s = nextShoot _shooter
-        b = bubbleShoot s
+        b = bubbleShoot _shoot
     
 offMap :: Shooter -> Bool
 offMap _shooter
     | onShoot _shooter == False = False
-    | x > 400 || x < -400 || y > 800 || y < 0 = True
+    | x > 400 || x < -400 || y > 800 || y < -50 = True
     | otherwise = False  
     where 
         (x, y) = bubblePos $ bubbleShoot $ nextShoot _shooter
