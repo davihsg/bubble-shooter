@@ -33,7 +33,7 @@ randomColor
     | c == 4 = yellow
     | otherwise = cyan
     where
-        c = randomNumber(2,5)
+        c = randomNumber(1,4)
 
 randomNumber::(Int,Int) -> Int
 randomNumber (a,b) = unsafePerformIO(randomRIO (a,b))
