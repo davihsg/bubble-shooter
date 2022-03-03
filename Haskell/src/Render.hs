@@ -18,7 +18,7 @@ render game @ Game { gameState = Menu } =
              ]          
           
 mkShooter::Shooter -> Picture
-mkShooter _shooter = pictures [translate x y (shooterPicture _shooter), shootPicture _shooter (getAngle $ shooterAngle _shooter)]
+mkShooter _shooter = pictures [shootPicture _shooter (getAngle $ shooterAngle _shooter), translate x y (shooterPicture _shooter)]
     where
         (x, y) = shooterPos _shooter
 
