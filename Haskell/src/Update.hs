@@ -8,7 +8,7 @@ update = updateBubble
 
 updateBubble :: Float -> BubbleShooter -> BubbleShooter
 updateBubble seconds game@Game {gameState = Playing} = game
-    { shooter = updateShooter (shooter game)
+    { bubbles = updateMap game, shooter = updateShooter (shooter game) game
     , time = updateTime game}
 
 updateBubble _ game@Game {gameState = Menu} = game
@@ -18,12 +18,20 @@ updateTime game = t + 1
     where
         t = time game
 
-updateShooter:: Shooter -> Shooter
-updateShooter _shooter 
-    | offMap _shooter = resetShooter _shooter
+updateShooter:: Shooter -> BubbleShooter -> Shooter
+updateShooter _shooter game@Game {gameState = Playing}
+    | offMap _shooter = resetShooter _shooter game
     | onShoot _shooter == False = _shooter 
     | otherwise = _shooter
     { nextShoot = updateShoot (nextShoot _shooter)}
+
+updateMap::BubbleShooter -> [Bubble]
+updateMap game 
+    | mod (round(time game)) 400 == 0 = map addBubble (bubbles game)
+    | otherwise = bubbles game
+
+addBubble :: Bubble -> Bubble
+addBubble bubble = Bubble{bubblePos = (fst (bubblePos bubble), snd(bubblePos bubble)  - 20), bubbleColor = bubbleColor bubble}
 
 updateShoot::Shoot -> Shoot
 updateShoot _shoot =
@@ -43,7 +51,7 @@ offMap _shooter
     where 
         (x, y) = bubblePos $ bubbleShoot $ nextShoot _shooter
 
-resetShooter::Shooter -> Shooter
-resetShooter _shooter = _shooter
+resetShooter::Shooter -> BubbleShooter -> Shooter
+resetShooter _shooter game@Game {gameState = Playing} = _shooter
     { onShoot = False
-    , nextShoot = newShoot}
+    , nextShoot = newShoot (time game)}
