@@ -1,49 +1,101 @@
 module Update where
+
 import Util
 import Graphics.Gloss
 import Models
 
 update :: Float -> BubbleShooter -> BubbleShooter
-update = updateBubble
+update seconds game =
+    case (gameState game) of
+        Menu -> game
+        Playing -> updateBubble seconds game
 
 updateBubble :: Float -> BubbleShooter -> BubbleShooter
-updateBubble seconds game@Game {gameState = Playing} = game
-    { shooter = updateShooter (shooter game)
-    , time = updateTime game}
+updateBubble seconds game = updateShooter $ updateMap $ updateTime game
 
-updateBubble _ game@Game {gameState = Menu} = game
-
-updateTime :: BubbleShooter -> Float
-updateTime game = t + 1 
+updateTime :: BubbleShooter -> BubbleShooter
+updateTime game = game
+    { time = t + 1}
     where
         t = time game
 
-updateShooter:: Shooter -> Shooter
-updateShooter _shooter 
-    | offMap _shooter = resetShooter _shooter
-    | onShoot _shooter == False = _shooter 
-    | otherwise = _shooter
-    { nextShoot = updateShoot (nextShoot _shooter)}
+updateShooter:: BubbleShooter -> BubbleShooter
+updateShooter game
+    | onShoot (shooter game) == False = game
+    | otherwise = updateShoot game
 
-updateShoot::Shoot -> Shoot
-updateShoot _shoot =
-    _shoot { bubbleShoot = b {bubblePos = (x', y')}}
+updateShoot::BubbleShooter -> BubbleShooter
+updateShoot game = checkCollision $ moveShoot game
+
+bubbleSpeed::Float
+bubbleSpeed = 3
+
+moveShoot::BubbleShooter -> BubbleShooter
+moveShoot game
+    | offMap _shoot = resetShooter game
+    | otherwise = game
+        { shooter = (shooter game)
+            { nextShoot = _shoot}
+        }
     where
-        (velx, vely) = shootVel _shoot
-        (x, y) = bubblePos $ bubbleShoot _shoot
-        x' = x + velx
-        y' = y + vely
-        b = bubbleShoot _shoot
-    
-offMap :: Shooter -> Bool
-offMap _shooter
-    | onShoot _shooter == False = False
-    | x > 400 || x < -400 || y > 800 || y < -50 = True
+        shoot = nextShoot $ shooter game
+        (velx, vely) = shootVel shoot
+        (x, y) = bubblePos $ bubbleShoot shoot
+        x' = x + (velx * bubbleSpeed)
+        y' = y + (vely * bubbleSpeed)
+        
+        _shoot = shoot
+            { bubbleShoot = Bubble
+                { bubblePos = (x', y')
+                , bubbleColor = bubbleColor $ bubbleShoot shoot
+                }
+            }
+
+offMap :: Shoot -> Bool
+offMap shoot
+    | x > 400 || x < (-400) || y > 400 || y < (-400) = True
     | otherwise = False  
     where 
-        (x, y) = bubblePos $ bubbleShoot $ nextShoot _shooter
+        (x, y) = bubblePos $ bubbleShoot $ shoot
 
-resetShooter::Shooter -> Shooter
-resetShooter _shooter = _shooter
-    { onShoot = False
-    , nextShoot = newShoot}
+resetShooter::BubbleShooter -> BubbleShooter
+resetShooter game = game
+    { shooter = (shooter game)
+        { onShoot = False
+        , nextShoot = newShoot (time game)
+        }
+    }
+  
+-- Em desenvolvimento
+checkCollision :: BubbleShooter -> BubbleShooter
+checkCollision game
+    | collided == [] = game
+    | otherwise = shootCollided game
+    where
+        _bubbleShoot = bubbleShoot $ nextShoot $ shooter game
+        collided = checkBubbles _bubbleShoot $ bubbles game
+
+shootCollided::BubbleShooter -> BubbleShooter
+shootCollided game = resetShooter game{ bubbles = (bubbles game) ++ [b]}
+    where
+        b = bubbleShoot $ nextShoot $ shooter game
+
+checkBubbles :: Bubble -> [Bubble] -> [Bubble]
+checkBubbles a bubbles = filter (\b -> isHit a b) bubbles
+
+isHit :: Bubble -> Bubble -> Bool
+isHit a b = dis < 41
+    where
+        (x, y) = bubblePos a
+        (x', y') = bubblePos b
+        dis = sqrt ((x - x') ** 2 + (y - y') ** 2)
+
+updateMap::BubbleShooter -> BubbleShooter
+updateMap game = game {bubbles = _bubbles}
+    where
+        _bubbles
+            | mod (round(time game)) 160 == 0 = map shiftBubble $ bubbles game
+            | otherwise = bubbles game
+
+shiftBubble :: Bubble -> Bubble
+shiftBubble bubble = Bubble{bubblePos = (fst (bubblePos bubble), snd (bubblePos bubble) - 3), bubbleColor = bubbleColor bubble}

@@ -1,4 +1,3 @@
-{-# OPTIONS_GHC -Wno-incomplete-patterns #-}
 module Util where
 
 import Graphics.Gloss
@@ -19,28 +18,27 @@ adjust x
     | x > 0 = 270
     | otherwise = 0
 
-randomBubble::Float -> Float -> Bubble
-randomBubble x y = Bubble
+randomBubble::Float -> Float -> Int -> Bubble
+randomBubble x y z = Bubble
     { bubblePos = (x, y)
-    , bubbleColor = randomColor
+    , bubbleColor = randomColor z
     }
-
-randomColor::Color
-randomColor 
+randomColor:: Int -> Color
+randomColor z
     | c == 1 = dark red
     | c == 2 = dark blue
     | c == 3 = light green
-    | c == 4 = yellow
-    | otherwise = cyan
+    | c == 4 = cyan
+    | otherwise = yellow
     where
-        c = randomNumber(1,5)
+        c = rem (randomNumber(1,5)*z) 5
 
 randomNumber::(Int,Int) -> Int
 randomNumber (a,b) = unsafePerformIO(randomRIO (a,b))
 
-newShoot::Shoot
-newShoot = Shoot
-    { bubbleShoot = randomBubble 0 45
+newShoot::Float -> Shoot
+newShoot t = Shoot
+    { bubbleShoot = randomBubble 0 (-260) (round t)
     , shootVel = (0, 0)
     }
 
@@ -49,15 +47,16 @@ getInitialShooter = Shooter
     { shooterPos   = (392, 50)
     , shooterAngle = (0, 0)
     , onShoot      = False
-    , nextShoot    = newShoot
+    , nextShoot    = newShoot 1
     }
 
 getMapBubbles::[Bubble] 
 getMapBubbles = generateMatrix 36 340
 
-generateMatrix::Float -> Float -> [Bubble]
-generateMatrix x 200 = generateLine x 200 
-generateMatrix x y = generateLine x y  ++ generateMatrix x (y - 20)
+generateMatrix::Float -> Float -> Int -> Float-> [Bubble]
+generateMatrix x y z t 
+    | y <= 0 = generateLine (x + (10*t)) y z 
+    | otherwise = generateLine (x + (10*t)) y (z+7) ++ generateMatrix x (y - 40) (z+7) (1-t)
 
 generateLine::Float -> Float -> [Bubble]
 generateLine 356 y = [randomBubble 356 y]
@@ -66,4 +65,4 @@ generateLine x y = [randomBubble x y] ++ (generateLine (x+20) y)
 getVel::Tuple -> Tuple
 getVel (x, y) = (x / k, y / k)
     where
-        k = sqrt (((x * x) + (y * y)) / 49)
+        k = sqrt ((x * x) + (y * y))
