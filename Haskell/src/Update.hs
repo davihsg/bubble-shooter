@@ -28,11 +28,12 @@ updateShooter _shooter game@Game {gameState = Playing}
 
 updateMap::BubbleShooter -> [Bubble]
 updateMap game 
-    | mod (round(time game)) 400 == 0 = map addBubble (bubbles game)
-    | otherwise = bubbles game
+    | mod (round(time game)) 400 == 0 = map shiftBubble bb
+    | otherwise = bb
+    where bb = checkBubbles game
 
-addBubble :: Bubble -> Bubble
-addBubble bubble = Bubble{bubblePos = (fst (bubblePos bubble), snd(bubblePos bubble)  - 20), bubbleColor = bubbleColor bubble}
+shiftBubble :: Bubble -> Bubble
+shiftBubble bubble = Bubble{bubblePos = (fst (bubblePos bubble), snd (bubblePos bubble) - 40), bubbleColor = bubbleColor bubble}
 
 updateShoot::Shoot -> Shoot
 updateShoot _shoot =
@@ -47,7 +48,7 @@ updateShoot _shoot =
 offMap :: Shooter -> Bool
 offMap _shooter
     | onShoot _shooter == False = False
-    | x > 800 || x < -50 || y > 800 || y < -50 = True
+    | x > 400 || x < (-400) || y > 400 || y < (-400) = True
     | otherwise = False  
     where 
         (x, y) = bubblePos $ bubbleShoot $ nextShoot _shooter

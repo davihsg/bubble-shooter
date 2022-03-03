@@ -7,7 +7,7 @@ import Util
 import Update
 
 render::BubbleShooter -> Picture 
-render game @ Game {gameState = Playing } = translate (convertToFloat (-350)) (convertToFloat (-350)) frame
+render game @ Game {gameState = Playing } = frame
     where frame = pictures ([mkShooter $ shooter game] ++ (map mkBubble (bubbles game))) 
           
 render game @ Game { gameState = Menu } =
@@ -36,7 +36,7 @@ shooterPicture _shooter =
 
 shootPicture::Shooter -> Float -> Picture
 shootPicture _shooter angle
-    | onShoot _shooter == False = translate x 50 $ rotate angle $ translate 0 (y-50) $ bubblePicture b
+    | onShoot _shooter == False = translate x (y - 40) $ rotate angle $ translate 0 40 $ bubblePicture b
     | otherwise = mkBubble b
     where
         b = bubbleShoot $ nextShoot _shooter

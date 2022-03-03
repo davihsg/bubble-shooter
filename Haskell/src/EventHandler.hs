@@ -32,7 +32,7 @@ shootBubble _shooter@Shooter {onShoot = False} (x, y) = (updateRotation _shooter
     {onShoot = True
     , nextShoot = (nextShoot _shooter)
         { bubbleShoot = (bubbleShoot (nextShoot _shooter)) 
-            { bubblePos = (cos angle * 40 + 350, sin angle * 40 + 50)}
+            { bubblePos = (cos angle * 40, sin angle * 40 - 300)}
         , shootVel = getVel (x, y + 300)
         }
     }

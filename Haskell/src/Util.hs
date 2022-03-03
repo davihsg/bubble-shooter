@@ -18,7 +18,6 @@ adjust x
     | x > 0 = 270
     | otherwise = 0
 
-
 randomBubble::Float -> Float -> Int -> Bubble
 randomBubble x y z = Bubble
     { bubblePos = (x, y)
@@ -39,29 +38,30 @@ randomNumber (a,b) = unsafePerformIO(randomRIO (a,b))
 
 newShoot::Float -> Shoot
 newShoot t = Shoot
-    { bubbleShoot = randomBubble 350 90 (round t)
+    { bubbleShoot = randomBubble 0 (-260) (round t)
     , shootVel = (0, 0)
     }
 
 getInitialShooter::Shooter
 getInitialShooter = Shooter
-    { shooterPos   = (350, 50)
+    { shooterPos   = (0, -300)
     , shooterAngle = (0, 0)
     , onShoot      = False
     , nextShoot    = newShoot 1
     }
 
 getMapBubbles::[Bubble] 
-getMapBubbles = generateMatrix 10 740 3 0
+getMapBubbles = generateMatrix (-330) 730 3 0
 
 generateMatrix::Float -> Float -> Int -> Float-> [Bubble]
-generateMatrix x 200 z t= generateLine (x + (10*t)) 200 z 
-generateMatrix x y z t= generateLine (x + (10*t)) y (z+7) ++ generateMatrix x (y - 20) (z+7) (1-t)
+generateMatrix x y z t 
+    | y <= 0 = generateLine (x + (10*t)) 200 z 
+    | otherwise = generateLine (x + (10*t)) y (z+7) ++ generateMatrix x (y - 40) (z+7) (1-t)
 
 generateLine::Float -> Float ->Int -> [Bubble]
 generateLine x y z
     | x > 340 = []
-    | otherwise = [randomBubble x y z] ++ (generateLine (x + 20) y) (z+7)
+    | otherwise = [randomBubble x y z] ++ (generateLine (x + 40) y) (z+7)
 
 getVel::Tuple -> Tuple
 getVel (x, y) = (x / k, y / k)

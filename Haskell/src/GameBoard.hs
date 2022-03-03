@@ -12,7 +12,7 @@ width = 700
 height = 700
 
 fps::Int
-fps = 1
+fps = 80
 
 initialState::BubbleShooter
 initialState = Game
