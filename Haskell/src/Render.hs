@@ -43,6 +43,4 @@ shootPicture _shooter angle
         (x, y) = bubblePos b
 
 bubblePicture::Bubble -> Picture
-bubblePicture bubble = color (bubbleColor bubble) $ translate x y $ circleSolid 20
-    where
-        (x, y) = bubblePos bubble
+bubblePicture bubble = color (bubbleColor bubble) $ circleSolid 20

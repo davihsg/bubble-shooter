@@ -44,23 +44,24 @@ newShoot t = Shoot
 
 getInitialShooter::Shooter
 getInitialShooter = Shooter
-    { shooterPos   = (392, 50)
+    { shooterPos   = (0, -300)
     , shooterAngle = (0, 0)
     , onShoot      = False
     , nextShoot    = newShoot 1
     }
 
 getMapBubbles::[Bubble] 
-getMapBubbles = generateMatrix 36 340
+getMapBubbles = generateMatrix (-330) 730 3 0
 
 generateMatrix::Float -> Float -> Int -> Float-> [Bubble]
 generateMatrix x y z t 
     | y <= 0 = generateLine (x + (10*t)) y z 
     | otherwise = generateLine (x + (10*t)) y (z+7) ++ generateMatrix x (y - 40) (z+7) (1-t)
 
-generateLine::Float -> Float -> [Bubble]
-generateLine 356 y = [randomBubble 356 y]
-generateLine x y = [randomBubble x y] ++ (generateLine (x+20) y)
+generateLine::Float -> Float ->Int -> [Bubble]
+generateLine x y z
+    | x > 340 = []
+    | otherwise = [randomBubble x y z] ++ (generateLine (x + 40) y) (z+7)
 
 getVel::Tuple -> Tuple
 getVel (x, y) = (x / k, y / k)
