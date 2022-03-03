@@ -3,6 +3,8 @@ module Util where
 
 import Graphics.Gloss
 import Models
+import System.Random
+import System.IO.Unsafe
 
 convertToFloat::Int->Float
 convertToFloat x = fromIntegral x :: Float
@@ -31,11 +33,10 @@ randomColor
     | c == 4 = yellow
     | otherwise = cyan
     where
-        c = randomNumber
+        c = randomNumber(2,5)
 
-randomNumber::Int
-randomNumber = 1
--- TODO
+randomNumber::(Int,Int) -> Int
+randomNumber (a,b) = unsafePerformIO(randomRIO (a,b))
 
 newShoot::Shoot
 newShoot = Shoot
