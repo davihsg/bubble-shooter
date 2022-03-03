@@ -7,9 +7,9 @@ import Util
 background :: Color
 background =  makeColorI 153 153 255 140
 
-width, height :: Int
-width = 700
-height = 700
+width, height, xOffset, yOffset :: Int
+width = 783
+height = 783
 
 fps::Int
 fps = 60

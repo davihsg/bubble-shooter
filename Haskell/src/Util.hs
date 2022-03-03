@@ -46,21 +46,21 @@ newShoot = Shoot
 
 getInitialShooter::Shooter
 getInitialShooter = Shooter
-    { shooterPos   = (350, 50)
+    { shooterPos   = (392, 50)
     , shooterAngle = (0, 0)
     , onShoot      = False
     , nextShoot    = newShoot
     }
 
 getMapBubbles::[Bubble] 
-getMapBubbles = generateMatrix 10 340
+getMapBubbles = generateMatrix 36 340
 
 generateMatrix::Float -> Float -> [Bubble]
 generateMatrix x 200 = generateLine x 200 
 generateMatrix x y = generateLine x y  ++ generateMatrix x (y - 20)
 
 generateLine::Float -> Float -> [Bubble]
-generateLine 330 y = [randomBubble 330 y]
+generateLine 356 y = [randomBubble 356 y]
 generateLine x y = [randomBubble x y] ++ (generateLine (x+20) y)
 
 getVel::Tuple -> Tuple
