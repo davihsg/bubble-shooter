@@ -55,7 +55,7 @@ getMapBubbles = generateMatrix (-330) 730 3 0
 
 generateMatrix::Float -> Float -> Int -> Float-> [Bubble]
 generateMatrix x y z t 
-    | y <= 0 = generateLine (x + (10*t)) 200 z 
+    | y <= 0 = generateLine (x + (10*t)) y z 
     | otherwise = generateLine (x + (10*t)) y (z+7) ++ generateMatrix x (y - 40) (z+7) (1-t)
 
 generateLine::Float -> Float ->Int -> [Bubble]
@@ -66,4 +66,4 @@ generateLine x y z
 getVel::Tuple -> Tuple
 getVel (x, y) = (x / k, y / k)
     where
-        k = sqrt (((x * x) + (y * y)) / 49)
+        k = sqrt ((x * x) + (y * y))
