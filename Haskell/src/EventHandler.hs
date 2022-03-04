@@ -22,6 +22,9 @@ eventHandler (EventKey (SpecialKey KeyEnter) Down _ _  ) game@ Game { gameState 
 eventHandler (EventKey (Char 'p') Down _ _  ) game@ Game { gameState = Playing} =
     game { gameState = Menu}
 
+eventHandler (EventKey (Char 'q') Down _ _  ) game@ Game { gameState = Playing} =
+    game { bubbles = []}
+
 eventHandler _ game = game
 
 updateRotation::Shooter -> Tuple -> Shooter
