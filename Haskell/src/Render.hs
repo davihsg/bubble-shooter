@@ -8,8 +8,8 @@ import Update
 
 render::BubbleShooter -> Picture 
 render game @ Game {gameState = Playing } = frame
-    where frame = pictures ([mkShooter $ shooter game] ++ (map mkBubble (bubbles game))) 
-          
+    where frame = pictures (map mkBubble (fallBubbles game) ++ [mkShooter $ shooter game] ++ (map mkBubble (bubbles game)))
+
 render game @ Game { gameState = Menu } =
     pictures [ mkText black "Bubble Shooter" 0.5 0.5 (-210) 200
              , mkText black "Init Game: press ENTER" 0.3 0.3 (-215) 100

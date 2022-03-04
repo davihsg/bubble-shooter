@@ -18,9 +18,10 @@ fps = 120
 
 initialState::BubbleShooter
 initialState = Game
-    { gameState = Menu
-    , bubbles   = []
-    , shooter   = getInitialShooter
-    , time      = 0
-    , score     = 0
+    { gameState   = Menu
+    , bubbles     = []
+    , shooter     = getInitialShooter
+    , time        = 0
+    , score       = 0
+    , fallBubbles = []
     }

@@ -19,6 +19,7 @@ eventHandler (EventKey (SpecialKey KeyEnter) Down _ _  ) game@ Game { gameState 
          , bubbles = getMapBubbles
          , shooter = getInitialShooter
          , score = 0
+         , fallBubbles = []
          }
 
 eventHandler (EventKey (Char 'p') Down _ _  ) game@ Game { gameState = Playing} =

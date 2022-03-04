@@ -11,7 +11,7 @@ update seconds game =
         Playing -> updateBubble seconds game
 
 updateBubble :: Float -> BubbleShooter -> BubbleShooter
-updateBubble seconds game = updateShooter $ updateMap $ updateTime game
+updateBubble seconds game = updateFallenBubbles $ updateShooter $ updateMap $ updateTime game
 
 updateTime :: BubbleShooter -> BubbleShooter
 updateTime game = game
@@ -100,11 +100,12 @@ concatBubbles m = (head m) ++ (concatBubbles $ tail m)
 
 fallenBubbles::BubbleShooter -> BubbleShooter
 fallenBubbles game = game
-    { bubbles = [x | x <- (bubbles game), onWall x (bubbles game)]
-    , score = (score game) + combo fallenBubble
+    { bubbles = [x | x <- (bubbles game), not (x `elem` fallenBubble)]
+    , score = (score game) + (combo $ length fallenBubble)
+    , fallBubbles = (fallBubbles game) ++ fallenBubble
     }
     where
-        fallenBubble = sum [if (onWall b $ bubbles game) then 1 else 0 | b <- (bubbles game)]
+        fallenBubble = [b | b <- (bubbles game), not $ (onWall b (bubbles game))]
 
 onWall::Bubble -> [Bubble] -> Bool
 onWall a bubbles 
@@ -140,3 +141,7 @@ updateMap game = game {bubbles = _bubbles}
 
 shiftBubble :: Bubble -> Bubble
 shiftBubble bubble = Bubble{bubblePos = (fst (bubblePos bubble), snd (bubblePos bubble) - 3), bubbleColor = bubbleColor bubble}
+
+updateFallenBubbles::BubbleShooter -> BubbleShooter
+updateFallenBubbles game = game 
+    {fallBubbles = [Bubble{bubblePos = (fst (bubblePos b), snd (bubblePos b) - 6), bubbleColor = bubbleColor b} | b <- (fallBubbles game), (snd (bubblePos b)) > (-400)]}
