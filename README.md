@@ -54,4 +54,6 @@ $ cabal run
 
 Assim será aberta uma interface gráfica que permitirá o acesso ao jogo :
 
+![Hnet-image(1)(1)](https://user-images.githubusercontent.com/84549704/156778307-d18ee5ea-a962-4b70-994d-418ed1d7e6ef.gif)
+
 Por Davi, Abraão, Júlia, João e Maria
