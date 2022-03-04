@@ -22,7 +22,7 @@ eventHandler (EventKey (SpecialKey KeyEnter) Down _ _  ) game@ Game { gameState 
          , fallBubbles = []
          }
 
-eventHandler (EventKey (Char 'p') Down _ _  ) game@ Game { gameState = Playing} =
+eventHandler (EventKey (Char 'p') Down _ _  ) game =
     game { gameState = Menu}
 
 eventHandler (EventKey (Char 'q') Down _ _  ) game@ Game { gameState = Playing} =
