@@ -32,3 +32,4 @@ data BubbleShooter = Game
     , time        :: Float
     , score       :: Int
     }
+
