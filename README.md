@@ -54,4 +54,7 @@ $ cabal run
 
 Assim será aberta uma interface gráfica que permitirá o acesso ao jogo :
 
+![snapshot](https://media0.giphy.com/media/ed1iXHgrL5NzFAky9x/giphy.gif?cid=790b76114e28e6dd4d37b1251d300ca803a2ad20829004cd&rid=giphy.gif&ct=g)
+
+
 Por Davi, Abraão, Júlia, João e Maria
