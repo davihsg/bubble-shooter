@@ -12,12 +12,13 @@ width = 700
 height = 700
 
 fps::Int
-fps = 80
+fps = 120
 
 initialState::BubbleShooter
 initialState = Game
     { gameState = Menu
-    , bubbles = []
-    , shooter = getInitialShooter
-    , time    = 0
+    , bubbles   = []
+    , shooter   = getInitialShooter
+    , time      = 0
+    , score     = 0
     }

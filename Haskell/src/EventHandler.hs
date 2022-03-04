@@ -17,7 +17,9 @@ eventHandler (EventKey (MouseButton LeftButton) Down _ (x, y)) game@Game {gameSt
 eventHandler (EventKey (SpecialKey KeyEnter) Down _ _  ) game@ Game { gameState = Menu} =
     game { gameState = Playing
          , bubbles = getMapBubbles
-         , shooter = getInitialShooter }
+         , shooter = getInitialShooter
+         , score = 0
+         }
 
 eventHandler (EventKey (Char 'p') Down _ _  ) game@ Game { gameState = Playing} =
     game { gameState = Menu}

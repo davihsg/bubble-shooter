@@ -51,16 +51,16 @@ getInitialShooter = Shooter
     }
 
 getMapBubbles::[Bubble] 
-getMapBubbles = generateMatrix (-330) 730 3 0
+getMapBubbles = generateMatrix (-320) 650 3 0
 
 generateMatrix::Float -> Float -> Int -> Float-> [Bubble]
 generateMatrix x y z t 
-    | y <= 0 = generateLine (x + (10*t)) y z 
-    | otherwise = generateLine (x + (10*t)) y (z+7) ++ generateMatrix x (y - 40) (z+7) (1-t)
+    | y <= 120 = generateLine (x + (15*t)) y z 
+    | otherwise = generateLine (x + (15*t)) y (z+7) ++ generateMatrix x (y - 40) (z+7) (t)
 
 generateLine::Float -> Float ->Int -> [Bubble]
 generateLine x y z
-    | x > 340 = []
+    | x > 320 = []
     | otherwise = [randomBubble x y z] ++ (generateLine (x + 40) y) (z+7)
 
 getVel::Tuple -> Tuple

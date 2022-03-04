@@ -30,4 +30,5 @@ data BubbleShooter = Game
     , bubbles     :: [Bubble]
     , shooter     :: Shooter
     , time        :: Float
+    , score       :: Int
     }
