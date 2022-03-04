@@ -48,7 +48,7 @@ shootPicture _shooter angle
         (x, y) = bubblePos b
 
 bubblePicture::Bubble -> Picture
-bubblePicture bubble = color (bubbleColor bubble) $ circleSolid 20
+bubblePicture bubble = pictures [color (light black) $ circleSolid 20, color (bubbleColor bubble) $ circleSolid 18]
 
 mkBoardRight::Picture
 mkBoardRight = pictures ([translate 365 200 $ color white $ rectangleSolid (25) (1100)])
@@ -57,5 +57,5 @@ mkBoardLeft::Picture
 mkBoardLeft = pictures ([translate (-365) 200 $ color white $ rectangleSolid (25) (1100)])
 
 mkBoard::Picture
-mkBoard = pictures ([rotate (90) $ translate (345) (0) $ color white $ rectangleSolid (25) (750)])
+mkBoard = pictures ([rotate (90) $ translate (365) (0) $ color white $ rectangleSolid (45) (750)])
 
