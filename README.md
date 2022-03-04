@@ -56,4 +56,10 @@ Assim será aberta uma interface gráfica que permitirá o acesso ao jogo :
 
 ![Hnet-image(2)(1)](https://user-images.githubusercontent.com/84549704/156785878-bd6176ad-6795-4b9d-be4f-014574ac0998.gif)
 
-Por Davi, Abraão, Júlia, João e Maria
+#Autores
+
+- Davi Henrique ([davihsg](https://github.com/davihsg))
+- Abraão Caiana ([AbraaoCF](https://github.com/AbraaoCF))
+- Júlia Oliveira ([juliaokmenezes](https://github.com/juliaokmenezes))
+- João Matheus ([joaoduavy](https://github.com/joaoduavy))
+- Maria Luiza ([mluizamarinho](https://github.com/mluizamarinho))
