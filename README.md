@@ -54,4 +54,6 @@ $ cabal run
 
 Assim será aberta uma interface gráfica que permitirá o acesso ao jogo :
 
+![snapshot](https://hnet.com/video-to-gif/download/20220304-00-TMf2meOvpv1WF2pw-eBbls5/Hnet-image.gif)
+
 Por Davi, Abraão, Júlia, João e Maria
