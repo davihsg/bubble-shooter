@@ -14,7 +14,7 @@ xOffset = 10
 yOffset = 10
 
 fps::Int
-fps = 120
+fps = 100
 
 initialState::BubbleShooter
 initialState = Game
