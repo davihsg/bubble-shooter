@@ -9,13 +9,17 @@ update seconds game =
     case (gameState game) of
         Menu -> game
         Playing -> updateBubble seconds game
+        Win -> game
+        Lose -> game
 
 updateBubble :: Float -> BubbleShooter -> BubbleShooter
 updateBubble seconds game = updateShooter $ updateMap $ updateTime game
 
 updateTime :: BubbleShooter -> BubbleShooter
-updateTime game = game
-    { time = t + 1}
+updateTime game 
+    | length (bubbles game) == 0 = game { gameState = Win}
+    | length(filter (checkBubblesLimit) (bubbles game)) > 0 = game { gameState = Lose }
+    | otherwise = game { time = t + 1}
     where
         t = time game
 
@@ -122,3 +126,10 @@ updateMap game = game {bubbles = _bubbles}
 
 shiftBubble :: Bubble -> Bubble
 shiftBubble bubble = Bubble{bubblePos = (fst (bubblePos bubble), snd (bubblePos bubble) - 3), bubbleColor = bubbleColor bubble}
+
+checkBubblesLimit::Bubble -> Bool
+checkBubblesLimit bubble
+        | y <= (-230) = True
+        | otherwise = False
+        where
+            (x,y) = bubblePos bubble

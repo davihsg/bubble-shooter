@@ -5,7 +5,7 @@ import Graphics.Gloss
 type Tuple = (Float, Float)
 
 data GameState = 
-    Playing | Menu
+    Playing | Menu | Win | Lose
     deriving Show
 
 data Shoot = Shoot

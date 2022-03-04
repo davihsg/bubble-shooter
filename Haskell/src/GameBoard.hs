@@ -8,7 +8,7 @@ background :: Color
 background =  makeColorI 153 153 255 140
 
 width, height, xOffset, yOffset :: Int
-width = 700
+width = 750
 height = 700
 xOffset = 10
 yOffset = 10
