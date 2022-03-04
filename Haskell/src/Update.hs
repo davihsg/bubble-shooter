@@ -13,7 +13,7 @@ update seconds game =
         Lose -> game
 
 updateBubble :: Float -> BubbleShooter -> BubbleShooter
-updateBubble seconds game = updateShooter $ updateMap $ updateTime game
+updateBubble seconds game = updateFallenBubbles $ updateShooter $ updateMap $ updateTime game
 
 updateTime :: BubbleShooter -> BubbleShooter
 updateTime game 
@@ -73,7 +73,7 @@ resetShooter game = game
 checkCollision :: BubbleShooter -> BubbleShooter
 checkCollision game
     | collided == [] = game
-    | otherwise = shootCollided game
+    | otherwise = fallenBubbles $ shootCollided game
     where
         _bubbleShoot = bubbleShoot $ nextShoot $ shooter game
         collided = checkBubbles _bubbleShoot $ bubbles game
@@ -83,7 +83,7 @@ shootCollided game
     | length destroyedBubbles < 3 = resetShooter $ game {bubbles = (bubbles game) ++ [a]}
     | otherwise = resetShooter $ game
         { bubbles = filter (\b -> not (b `elem` destroyedBubbles)) $ ((bubbles game) ++ [a])
-        , score = (score game) + combo destroyedBubbles
+        , score = (score game) + (combo $ length destroyedBubbles)
         }
     where
         a = bubbleShoot $ nextShoot $ shooter game
@@ -102,10 +102,29 @@ concatBubbles::[[Bubble]] -> [Bubble]
 concatBubbles [] = []
 concatBubbles m = (head m) ++ (concatBubbles $ tail m)
 
-combo::[Bubble] -> Int
-combo [] = 0
-combo destroyedBubbles = (2 ^ l) - 1
-    where l = length destroyedBubbles
+fallenBubbles::BubbleShooter -> BubbleShooter
+fallenBubbles game = game
+    { bubbles = [x | x <- (bubbles game), not (x `elem` fallenBubble)]
+    , score = (score game) + (combo $ length fallenBubble)
+    , fallBubbles = (fallBubbles game) ++ fallenBubble
+    }
+    where
+        fallenBubble = [b | b <- (bubbles game), not $ (onWall b (bubbles game))]
+
+onWall::Bubble -> [Bubble] -> Bool
+onWall a bubbles 
+    | y >= 330 = True
+    | [b | b <- bubbles, (snd $ bubblePos b) > y] == [] = True
+    | otherwise = True `elem` ans
+    where
+        (_, y) = bubblePos a
+        _bubbles = filter (\b -> (isHit a b)) bubbles
+        newBubbles = filter (\b -> not (b `elem` _bubbles)) bubbles
+
+        ans = [onWall b newBubbles | b <- _bubbles]
+
+combo::Int -> Int
+combo n = (2 ^ n) - 1
 
 checkBubbles :: Bubble -> [Bubble] -> [Bubble]
 checkBubbles a bubbles = filter (\b -> isHit a b) bubbles
@@ -126,6 +145,10 @@ updateMap game = game {bubbles = _bubbles}
 
 shiftBubble :: Bubble -> Bubble
 shiftBubble bubble = Bubble{bubblePos = (fst (bubblePos bubble), snd (bubblePos bubble) - 3), bubbleColor = bubbleColor bubble}
+
+updateFallenBubbles::BubbleShooter -> BubbleShooter
+updateFallenBubbles game = game 
+    {fallBubbles = [Bubble{bubblePos = (fst (bubblePos b), snd (bubblePos b) - 6), bubbleColor = bubbleColor b} | b <- (fallBubbles game), (snd (bubblePos b)) > (-400)]}
 
 checkBubblesLimit::Bubble -> Bool
 checkBubblesLimit bubble

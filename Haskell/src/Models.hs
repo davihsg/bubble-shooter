@@ -31,5 +31,6 @@ data BubbleShooter = Game
     , shooter     :: Shooter
     , time        :: Float
     , score       :: Int
+    , fallBubbles :: [Bubble]
     }
 
