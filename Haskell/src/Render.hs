@@ -8,7 +8,7 @@ import Update
 
 render::BubbleShooter -> Picture 
 render game @ Game {gameState = Playing } = frame
-    where frame = pictures (map mkBubble (fallBubbles game) ++ [mkShooter $ shooter game] ++ (map mkBubble (bubbles game)) ++ [mkBoardRight] ++ [mkBoardLeft] ++ [mkBoard] ++ [mkscore game])
+    where frame = pictures (map mkBubble (fallBubbles game) ++ [mkShooter $ shooter game] ++ (map mkBubble (bubbles game)) ++ [mkBoardRight] ++ [mkBoardLeft] ++ [mkBoard] ++ [mkscore game "Score: " (-300, -330) (0.25, 0.25)])
 render game @ Game { gameState = Menu } =
     pictures [ mkText black "Bubble Shooter" 0.5 0.5 (-210) 200
              , mkText black "Init Game: press ENTER" 0.3 0.3 (-215) 100
@@ -17,7 +17,9 @@ render game @ Game { gameState = Menu } =
              ]
 
 render game @ Game { gameState = Win } =
-    pictures[mkText black "You win!" 0.5 0.5 (-130) (-30)]
+    pictures[mkText black "You win!" 0.5 0.5 (-130) (-30)
+            , mkscore game ("Score: ") (-90, -100) (0.3, 0.3) 
+    ]
 
 render game @ Game { gameState = Lose } =
     pictures[mkText black "Game over!" 0.5 0.5 (-190) (-30)]
@@ -32,12 +34,12 @@ mkBubble bubble = translate x y (bubblePicture bubble)
     where
         (x, y) = bubblePos bubble
 
-mkscore:: BubbleShooter -> Picture
-mkscore game = aux
+mkscore:: BubbleShooter -> [Char] -> Tuple -> Tuple -> Picture
+mkscore game text (x, y) (x', y')= aux
                where
                 num = show $ score $ game
-                text = "Score: " ++ num
-                aux = translate (0 - 300) (0 - 330) $ scale 0.25 0.25 $ Text text 
+                t = text ++ num
+                aux = translate x y $ scale x' y' $ Text t 
 
 mkText :: Color -> String -> Float -> Float -> Float -> Float -> Picture
 mkText col text x y x' y' = translate x' y' $ scale x y $ color col $ Text text
