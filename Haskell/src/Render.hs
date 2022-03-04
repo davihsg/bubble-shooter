@@ -8,14 +8,19 @@ import Update
 
 render::BubbleShooter -> Picture 
 render game @ Game {gameState = Playing } = frame
-    where frame = pictures (map mkBubble (fallBubbles game) ++ [mkShooter $ shooter game] ++ (map mkBubble (bubbles game)))
-
+    where frame = pictures (map mkBubble (fallBubbles game) ++ [mkShooter $ shooter game] ++ (map mkBubble (bubbles game)) ++ [mkBoardRight] ++ [mkBoardLeft] ++ [mkBoard])
 render game @ Game { gameState = Menu } =
     pictures [ mkText black "Bubble Shooter" 0.5 0.5 (-210) 200
              , mkText black "Init Game: press ENTER" 0.3 0.3 (-215) 100
              , mkText black "Back to Menu: press P" 0.3 0.3 (-220) (0)
              , mkText black "Quit Game: press ESC" 0.3 0.3 (-220) (-100)
-             ]          
+             ]
+
+render game @ Game { gameState = Win } =
+    pictures[mkText black "You win!" 0.5 0.5 (-130) (-30)]
+
+render game @ Game { gameState = Lose } =
+    pictures[mkText black "Game over!" 0.5 0.5 (-190) (-30)]
           
 mkShooter::Shooter -> Picture
 mkShooter _shooter = pictures [shootPicture _shooter (getAngle $ shooterAngle _shooter), translate x y (shooterPicture _shooter)]
@@ -44,3 +49,13 @@ shootPicture _shooter angle
 
 bubblePicture::Bubble -> Picture
 bubblePicture bubble = color (bubbleColor bubble) $ circleSolid 20
+
+mkBoardRight::Picture
+mkBoardRight = pictures ([translate 365 200 $ color white $ rectangleSolid (25) (1100)])
+
+mkBoardLeft::Picture
+mkBoardLeft = pictures ([translate (-365) 200 $ color white $ rectangleSolid (25) (1100)])
+
+mkBoard::Picture
+mkBoard = pictures ([rotate (90) $ translate (345) (0) $ color white $ rectangleSolid (25) (750)])
+
