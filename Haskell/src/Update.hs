@@ -16,9 +16,9 @@ updateBubble :: Float -> BubbleShooter -> BubbleShooter
 updateBubble seconds game = updateFallenBubbles $ updateShooter $ updateMap $ updateTime game
 
 updateTime :: BubbleShooter -> BubbleShooter
-updateTime game 
+updateTime game
     | length ([b | b <- (bubbles game), (bubbleColor b) /= black]) == 0 = game { gameState = Win}
-    | length(filter (checkBubblesLimit) (bubbles game)) > 0 = game { gameState = Lose }
+    | length (filter (checkBubblesLimit) (bubbles game)) > 0 = game { gameState = Lose }
     | otherwise = game { time = t + 1}
     where
         t = time game
@@ -32,7 +32,7 @@ updateShoot::BubbleShooter -> BubbleShooter
 updateShoot game = checkCollision $ moveShoot game
 
 bubbleSpeed::Float
-bubbleSpeed = 4
+bubbleSpeed = 4.5
 
 moveShoot::BubbleShooter -> BubbleShooter
 moveShoot game
@@ -114,7 +114,7 @@ fallenBubbles game = game
 onWall::Bubble -> [Bubble] -> Bool
 onWall a bubbles 
     | y >= 330 = True
-    | [b | b <- bubbles, (snd $ bubblePos b) > y] == [] = True
+    | bubbleColor a == black = True
     | otherwise = True `elem` ans
     where
         (_, y) = bubblePos a
@@ -148,7 +148,7 @@ shiftBubble bubble = Bubble{bubblePos = (fst (bubblePos bubble), snd (bubblePos 
 
 updateFallenBubbles::BubbleShooter -> BubbleShooter
 updateFallenBubbles game = game 
-    {fallBubbles = [Bubble{bubblePos = (fst (bubblePos b), snd (bubblePos b) - 8), bubbleColor = bubbleColor b} | b <- (fallBubbles game), (snd (bubblePos b)) > (-400)]}
+    {fallBubbles = [Bubble{bubblePos = (fst (bubblePos b), snd (bubblePos b) - (2 * bubbleSpeed)), bubbleColor = bubbleColor b} | b <- (fallBubbles game), (snd (bubblePos b)) > (-400)]}
 
 checkBubblesLimit::Bubble -> Bool
 checkBubblesLimit bubble

@@ -51,7 +51,10 @@ getInitialShooter = Shooter
     }
 
 getMapBubbles::[Bubble] 
-getMapBubbles = (generateMatrix (-320) 370 3 0) ++ (generateEndLine (-320) 410) ++ (generateEndLine (-320) 450)
+getMapBubbles = (generateMatrix (-320) 370 3 0) ++ getEndBubbles
+
+getEndBubbles::[Bubble]
+getEndBubbles = (generateEndLine (-320) 410) ++ (generateEndLine (-320) 450)
 
 generateEndLine::Float -> Float -> [Bubble]
 generateEndLine x y
