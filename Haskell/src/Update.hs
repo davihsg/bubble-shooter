@@ -69,7 +69,7 @@ resetShooter game = game
 checkCollision :: BubbleShooter -> BubbleShooter
 checkCollision game
     | collided == [] = game
-    | otherwise = shootCollided game
+    | otherwise = fallenBubbles $ shootCollided game
     where
         _bubbleShoot = bubbleShoot $ nextShoot $ shooter game
         collided = checkBubbles _bubbleShoot $ bubbles game
@@ -79,7 +79,7 @@ shootCollided game
     | length destroyedBubbles < 3 = resetShooter $ game {bubbles = (bubbles game) ++ [a]}
     | otherwise = resetShooter $ game
         { bubbles = filter (\b -> not (b `elem` destroyedBubbles)) $ ((bubbles game) ++ [a])
-        , score = (score game) + combo destroyedBubbles
+        , score = (score game) + (combo $ length destroyedBubbles)
         }
     where
         a = bubbleShoot $ nextShoot $ shooter game
@@ -98,10 +98,28 @@ concatBubbles::[[Bubble]] -> [Bubble]
 concatBubbles [] = []
 concatBubbles m = (head m) ++ (concatBubbles $ tail m)
 
-combo::[Bubble] -> Int
-combo [] = 0
-combo destroyedBubbles = (2 ^ l) - 1
-    where l = length destroyedBubbles
+fallenBubbles::BubbleShooter -> BubbleShooter
+fallenBubbles game = game
+    { bubbles = [x | x <- (bubbles game), onWall x (bubbles game)]
+    , score = (score game) + combo fallenBubble
+    }
+    where
+        fallenBubble = sum [if (onWall b $ bubbles game) then 1 else 0 | b <- (bubbles game)]
+
+onWall::Bubble -> [Bubble] -> Bool
+onWall a bubbles 
+    | y >= 330 = True
+    | [b | b <- bubbles, (snd $ bubblePos b) > y] == [] = True
+    | otherwise = True `elem` ans
+    where
+        (_, y) = bubblePos a
+        _bubbles = filter (\b -> (isHit a b)) bubbles
+        newBubbles = filter (\b -> not (b `elem` _bubbles)) bubbles
+
+        ans = [onWall b newBubbles | b <- _bubbles]
+
+combo::Int -> Int
+combo n = (2 ^ n) - 1
 
 checkBubbles :: Bubble -> [Bubble] -> [Bubble]
 checkBubbles a bubbles = filter (\b -> isHit a b) bubbles
