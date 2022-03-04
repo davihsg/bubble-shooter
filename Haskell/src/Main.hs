@@ -6,6 +6,7 @@ import Render
 import EventHandler
 import Update
 import Util
+import Models
 
 window::Display
 window = InWindow "Bubble Shooter" (width, height) (xOffset,yOffset)

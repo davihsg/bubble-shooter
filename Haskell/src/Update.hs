@@ -65,8 +65,7 @@ resetShooter game = game
         , nextShoot = newShoot (time game)
         }
     }
-  
--- Em desenvolvimento
+
 checkCollision :: BubbleShooter -> BubbleShooter
 checkCollision game
     | collided == [] = game
@@ -76,9 +75,33 @@ checkCollision game
         collided = checkBubbles _bubbleShoot $ bubbles game
 
 shootCollided::BubbleShooter -> BubbleShooter
-shootCollided game = resetShooter game{ bubbles = (bubbles game) ++ [b]}
+shootCollided game
+    | length destroyedBubbles < 3 = resetShooter $ game {bubbles = (bubbles game) ++ [a]}
+    | otherwise = resetShooter $ game
+        { bubbles = filter (\b -> not (b `elem` destroyedBubbles)) $ ((bubbles game) ++ [a])
+        , score = (score game) + combo destroyedBubbles
+        }
     where
-        b = bubbleShoot $ nextShoot $ shooter game
+        a = bubbleShoot $ nextShoot $ shooter game
+        destroyedBubbles = getDestroyedBubbles a (bubbleColor a) ((bubbles game) ++ [a])
+
+getDestroyedBubbles::Bubble -> Color -> [Bubble] -> [Bubble]
+getDestroyedBubbles _ _ [] = []
+getDestroyedBubbles a col bubbles = concatBubbles bubblesDestroyed
+    where 
+        _bubbles = filter (\b -> (isHit a b) && ((bubbleColor a) == (bubbleColor b))) bubbles
+        newBubbles = filter (\b -> not (b `elem` _bubbles)) bubbles
+
+        bubblesDestroyed = [getDestroyedBubbles b col newBubbles | b <- _bubbles] ++ [_bubbles]
+
+concatBubbles::[[Bubble]] -> [Bubble]
+concatBubbles [] = []
+concatBubbles m = (head m) ++ (concatBubbles $ tail m)
+
+combo::[Bubble] -> Int
+combo [] = 0
+combo destroyedBubbles = (2 ^ l) - 1
+    where l = length destroyedBubbles
 
 checkBubbles :: Bubble -> [Bubble] -> [Bubble]
 checkBubbles a bubbles = filter (\b -> isHit a b) bubbles
@@ -94,7 +117,7 @@ updateMap::BubbleShooter -> BubbleShooter
 updateMap game = game {bubbles = _bubbles}
     where
         _bubbles
-            | mod (round(time game)) 160 == 0 = map shiftBubble $ bubbles game
+            | mod (round(time game)) 720 == 0 = map shiftBubble $ bubbles game
             | otherwise = bubbles game
 
 shiftBubble :: Bubble -> Bubble
