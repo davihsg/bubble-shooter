@@ -8,7 +8,7 @@ import Update
 
 render::BubbleShooter -> Picture 
 render game @ Game {gameState = Playing } = frame
-    where frame = pictures (map mkBubble (fallBubbles game) ++ [mkShooter $ shooter game] ++ (map mkBubble (bubbles game)) ++ [mkBoardRight] ++ [mkBoardLeft] ++ [mkBoard])
+    where frame = pictures (map mkBubble (fallBubbles game) ++ [mkShooter $ shooter game] ++ (map mkBubble (bubbles game)) ++ [mkBoardRight] ++ [mkBoardLeft] ++ [mkBoard] ++ [mkscore game])
 render game @ Game { gameState = Menu } =
     pictures [ mkText black "Bubble Shooter" 0.5 0.5 (-210) 200
              , mkText black "Init Game: press ENTER" 0.3 0.3 (-215) 100
@@ -31,6 +31,13 @@ mkBubble::Bubble -> Picture
 mkBubble bubble = translate x y (bubblePicture bubble)
     where
         (x, y) = bubblePos bubble
+
+mkscore:: BubbleShooter -> Picture
+mkscore game = aux
+               where
+                num = show $ score $ game
+                text = "Score: " ++ num
+                aux = translate (0 - 300) (0 - 330) $ scale 0.25 0.25 $ Text text 
 
 mkText :: Color -> String -> Float -> Float -> Float -> Float -> Picture
 mkText col text x y x' y' = translate x' y' $ scale x y $ color col $ Text text
