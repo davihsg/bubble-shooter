@@ -109,19 +109,20 @@ fallenBubbles game = game
     , fallBubbles = (fallBubbles game) ++ fallenBubble
     }
     where
-        fallenBubble = [b | b <- (bubbles game), not $ (onWall b (bubbles game))]
+        limiar = 370 - (((time game) / 720) * 3)
+        fallenBubble = [b | b <- (bubbles game), not $ (onWall b (bubbles game) limiar)]
 
-onWall::Bubble -> [Bubble] -> Bool
-onWall a bubbles 
+onWall::Bubble -> [Bubble] -> Float -> Bool
+onWall a bubbles limiar
     | y >= 330 = True
-    | bubbleColor a == black = True
+    | y >= limiar = True
     | otherwise = True `elem` ans
     where
         (_, y) = bubblePos a
         _bubbles = filter (\b -> (isHit a b)) bubbles
         newBubbles = filter (\b -> not (b `elem` _bubbles)) bubbles
 
-        ans = [onWall b newBubbles | b <- _bubbles]
+        ans = [onWall b newBubbles limiar | b <- _bubbles]
 
 combo::Int -> Int
 combo n = (2 ^ n) - 1
