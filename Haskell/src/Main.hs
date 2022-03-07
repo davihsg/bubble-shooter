@@ -8,6 +8,7 @@ import Update
 import Util
 import Models
 
+-- Interface grafica
 window::Display
 window = InWindow "Bubble Shooter" (width, height) (xOffset,yOffset)
 
