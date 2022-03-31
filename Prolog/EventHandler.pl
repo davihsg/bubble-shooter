@@ -8,17 +8,21 @@ handleEvent(menu, Shooter, OnShoot, NewGameState, _, _) :-
     nl,
 
     (
-        start(Key) -> NewGameState = game;
+        startKey(Key) -> NewGameState = game;
         NewGameState = menu
     ),
-    write(NewGameState).
+    write(NewGameState), nl.
 
 handleEvent(game, Shooter, OnShoot, _, NewShooter, NewOnShoot) :-
     get_single_char(Key),
 
+    write("Key: "),
+    write(Key),
+    nl,
+
     (
-        right(Key) -> rotate(1, Shooter, NewShooter);
-        left(Key) -> rotate(-1, Shooter, NewShooter);
-        shoot(Key), OnShoot = false -> NewOnShoot = true;
-        NewShooter is Shooter, NewOnShoot = OnShoot
+        rightKey(Key) -> rotateRight(Shooter, NewShooter);
+        leftKey(Key) -> rotateLeft(Shooter, NewShooter);
+        shootKey(Key), OnShoot = false -> NewOnShoot = true;
+        NewShooter = Shooter, NewOnShoot = OnShoot
     ).
