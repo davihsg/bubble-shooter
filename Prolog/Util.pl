@@ -1,4 +1,4 @@
-rightKey(114).
+rightKey(100).
 rightKey(67).
 
 leftKey(97).
@@ -7,8 +7,18 @@ leftKey(68).
 shootKey(32).
 
 startKey(13).
+startKey(10).
 
-initialShooter([350, -350, 90]).
+initialShooter([[350, -350], Bubble]) :-
+    initialShoot(Bubble).
+
+initialShoot([[350, -350], #]).
+
+initialBubbless([[362, -320], #]).
+
+leftLimit(0).
+
+rightLimit(600).
 
 initialBubbles('
                         |---||---||---||---||---||---||---||---||---||---||---||---||---||---||---||---||---||---||---|
@@ -33,8 +43,39 @@ initialBubbles('
 checkGameOver([], menu).
 checkGameOver(_, game).
 
-rotateLeft(Shooter, Shooter).
-rotateRight(Shooter, Shooter).
+moveLeft([[X, Y], Shoot], [[NewX, Y], Shoot]):-
+    distancia(Dis),
+
+    (
+        leftLimit(X) -> NewX is X;
+        NewX is X - Dis
+    ).
+
+moveRight([[X, Y], Shoot], [[NewX, Y], Shoot]):-
+    distancia(Dis),
+
+    (
+        rightLimit(X) -> NewX is X;
+        NewX is X + Dis
+    ).
+
+distancia(3).
+
+isHit([A, B], [C, D]) :-
+    distancia(Dis),
+
+    abs(A - C, DeltaX),
+    abs(B - D, DeltaY),
+
+    DeltaX + DeltaY =< Dis * 2.
+
+size([], 0).
+
+size([X|Tail], Size):-
+
+    size(Tail, NewSize),
+
+    Size is NewSize + 1.
 
 /*
 convertToFloat(ValorInteiro,ValorFloat):-

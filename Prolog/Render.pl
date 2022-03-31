@@ -1,9 +1,6 @@
 :- include('Util.pl').
 
-render(menu, _, _, _) :-
+render(menu, _, _) :-
     print_menu().
 
-render(game, _, _, _) :- write("Game"), nl.
-
-
-
+render(game, _, _) :- write("Game"), nl.

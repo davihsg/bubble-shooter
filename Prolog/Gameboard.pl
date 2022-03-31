@@ -3,36 +3,36 @@
 :- include('Util.pl').
 :- include('Update.pl').
 
-play(menu, Bubbles, Shooter, FallenBubbles, OnShoot, Time) :-
+play(menu, Bubbles, Shooter, OnShoot, Time) :-
     sleep(1),
     render(menu, _, _, _),
     
     handleEvent(menu, _, _, NewGameState, _, _),
     nl, write("GameState: "), write(NewGameState), nl,
 
-    play(NewGameState, [], [], [], false, 0).
+    play(NewGameState, [], [], false, 0).
 
-play(game, [], [], [], false, 0) :-
+play(game, [], [], false, 0) :-
     sleep(1),
-    
+    nl, write("Zerou"), nl, 
+
     render(game, NewBubbles, NewShooter, []),
     
     initialBubbles(NewBubbles),
 
     initialShooter(NewShooter),
 
-    play(game, NewBubbles, NewShooter, [], false, 0).
+    play(game, NewBubbles, NewShooter, false, 0).
 
-play(game, Bubbles, Shooter, FallenBubbles, OnShoot, Time) :-
+play(game, Bubbles, Shooter, OnShoot, Time) :-
     sleep(1),
-
+    
     % Rederiza a tela
     render(game, FinalBubbles, FinalShooter, FinalFallenBubbles),
 
-    nl,
+    nl, write("Received"), nl,
     write(Bubbles), nl,
     write(Shooter), nl,
-    write(FallenBubbles), nl,
     write(OnShoot), nl,
     write(Time), nl,
 
@@ -42,29 +42,29 @@ play(game, Bubbles, Shooter, FallenBubbles, OnShoot, Time) :-
     % Recebe uma entrada
     handleEvent(game, Shooter, OnShoot, _, NewShooter, NewOnShoot),
 
-    % Atualiza o shooter 
-    updateShooter(Bubbles, NewShooter, FallenBubbles, NewBubbles, FinalShooter, NewFallenBubbles),
-
-    write(Bubbles), nl,
     write(NewShooter), nl,
-    write(FallenBubbles), nl,
+    write(NewOnShoot), nl,
+
+    % Atualiza o shooter 
+    updateShooter(Bubbles, NewShooter, NewOnShoot, NewBubbles, FinalShooter, FinalOnShoot),
+
+    nl, write("Update Shooter"), nl,
     write(NewBubbles), nl,
+    write(NewShooter), nl,
     write(FinalShooter), nl,
-    write(NewFallenBubbles), nl,
 
     % Atualiza a posicao das bolhas
-    updateBubbles(NewBubbles, NewFallenBubbles, FinalBubbles, FinalFallenBubbles, NewTime),
+    updateBubbles(NewBubbles, FinalBubbles, NewTime),
 
-    nl,
+    nl, write("Update Bubbles"), nl,
     write(FinalBubbles), nl,
-    write(FinalFallenBubbles), nl,
     write(NewTime), nl,
 
     % Verifica se o jogo acabou
     checkGameOver(FinalBubbles, NewGameState),
 
-    nl,
+    nl, write("GameState"), nl,
     write(NewGameState), nl,
-
+    
     % Continua o jogo
-    play(NewGameState, NewBubbles, FinalShooter, FinalFallenBubbles, NewOnShoot, NewTime).
+    play(NewGameState, FinalBubbles, FinalShooter, FinalOnShoot, NewTime).

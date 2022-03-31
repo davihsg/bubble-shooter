@@ -1,6 +1,6 @@
 :- include('Util.pl').
 
-handleEvent(menu, Shooter, OnShoot, NewGameState, _, _) :-
+handleEvent(menu, _, _, NewGameState, _, _) :-
     get_single_char(Key),
 
     write("Key: "),
@@ -19,10 +19,17 @@ handleEvent(game, Shooter, OnShoot, _, NewShooter, NewOnShoot) :-
     write("Key: "),
     write(Key),
     nl,
+    write(OnShoot), nl,
 
     (
-        rightKey(Key) -> rotateRight(Shooter, NewShooter);
-        leftKey(Key) -> rotateLeft(Shooter, NewShooter);
-        shootKey(Key), OnShoot = false -> NewOnShoot = true;
+        rightKey(Key) -> moveRight(Shooter, NewShooter), NewOnShoot = OnShoot;
+        leftKey(Key) -> moveLeft(Shooter, NewShooter), NewOnShoot = OnShoot;
+        shootKey(Key), OnShoot = false -> shootBubble(Shooter, NewShooter), NewOnShoot = true;
         NewShooter = Shooter, NewOnShoot = OnShoot
-    ).
+    ),
+
+    
+    nl,
+    write("ONSHOT?"), write(NewOnShoot), nl.
+
+shootBubble([Pos, [_, Color]], [Pos, [Pos, Color]]).
