@@ -5,7 +5,7 @@
 
 play(menu, Bubbles, Shooter, OnShoot, Time) :-
     sleep(1),
-    render(menu, _, _, _),
+    render(menu, _, _),
     
     handleEvent(menu, _, _, NewGameState, _, _),
     nl, write("GameState: "), write(NewGameState), nl,
@@ -16,7 +16,7 @@ play(game, [], [], false, 0) :-
     sleep(1),
     nl, write("Zerou"), nl, 
 
-    render(game, NewBubbles, NewShooter, []),
+    render(game, NewBubbles, NewShooter),
     
     initialBubbles(NewBubbles),
 
@@ -28,7 +28,7 @@ play(game, Bubbles, Shooter, OnShoot, Time) :-
     sleep(1),
     
     % Rederiza a tela
-    render(game, FinalBubbles, FinalShooter, FinalFallenBubbles),
+    render(game, FinalBubbles, FinalShooter),
 
     nl, write("Received"), nl,
     write(Bubbles), nl,
