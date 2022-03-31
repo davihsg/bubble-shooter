@@ -85,23 +85,24 @@ Assim será aberta uma interface gráfica que permitirá o acesso ao jogo :
 ## Implementação em Prolog
 
 ## Para a funcionalidade da aplicação em Haskell é necessário
-  - Ter em sua máquina instalado o Prolog.
+- Ter em sua máquina instalado o Prolog.
 
-    ```bash
-    $ sudo apt-get install swi-prolog
-    ```
+```bash
+$ sudo apt-get install swi-prolog
+```
 
-  - Entre na pasta de Prolog  
+## Executando a aplicação
+- Entre na pasta de Prolog  
 
-    ```bash
-        $ cd prolog
-        ```
+```bash
+   $ cd prolog
+```
 
- - Execute este comando para compilar e executar o jogo
+- Execute este comando para compilar e executar o jogo
   
-   ```bash
-        $ swipl -s Main.pl
-        ```
+ ```bash
+    $ swipl -s Main.pl
+ ```
         
 # Autores
 
