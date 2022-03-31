@@ -84,7 +84,7 @@ Assim será aberta uma interface gráfica que permitirá o acesso ao jogo :
 
 ## Implementação em Prolog
 
-## Para a funcionalidade da aplicação em Haskell é necessário
+## Para a funcionalidade da aplicação em Prolog é necessário
 - Ter em sua máquina instalado o Prolog.
 
 ```bash
