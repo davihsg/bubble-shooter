@@ -15,6 +15,7 @@ Entre no repositório
 ```bash
 $ cd bubble-shooter
 ```
+## Implementação em Haskell
 
 ## Para a funcionalidade da aplicação em Haskell é necessário
 
@@ -81,6 +82,28 @@ Assim será aberta uma interface gráfica que permitirá o acesso ao jogo :
 
 ![Hnet-image(2)(1)](https://user-images.githubusercontent.com/84549704/156785878-bd6176ad-6795-4b9d-be4f-014574ac0998.gif)
 
+## Implementação em Prolog
+
+## Para a funcionalidade da aplicação em Prolog é necessário
+- Ter em sua máquina instalado o Prolog.
+
+```bash
+$ sudo apt-get install swi-prolog
+```
+
+## Executando a aplicação
+- Entre na pasta de Prolog  
+
+```bash
+   $ cd prolog
+```
+
+- Execute este comando para compilar e executar o jogo
+  
+ ```bash
+    $ swipl -s Main.pl
+ ```
+        
 # Autores
 
 - Davi Henrique ([davihsg](https://github.com/davihsg))
