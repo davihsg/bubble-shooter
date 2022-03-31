@@ -93,3 +93,56 @@ getVel((X,Y),Tuple):-
     K is sqrt((X*X) + (Y * Y)),
     Tuple is (X/K, Y/K).
 */
+
+
+print_matrix(Matrix) :-
+    matrix_to_str(Matrix, Str),
+    write(Str).
+
+matrix_to_str([], "").
+
+matrix_to_str([Head | Tail], Str) :-
+    matrix_to_str(Tail, NextStr),
+    string_concat(Head, NextStr, Str).
+
+print_menu():-                                                                                                                           
+    L1 = "Commands: A, D, SPACE",
+    L2 = "Press Enter to start the game",
+    L3 = "########",
+    L4 = "########",
+
+
+    List = [L1, L2, L3, L4],
+    
+    nl, nl, nl, nl,
+    print_L(List, 0).
+    
+print_L([], _).
+
+print_L([Head|Tail], 0) :-
+    write("                                             "),
+    write(Head),
+    nl,
+    nl,
+    Ncount is 1,
+    print_L(Tail, Ncount).
+
+
+print_L([Head|Tail], 1) :-
+    write("                                         "),
+    write(Head),
+    nl,
+    nl,
+    Ncount is 2,
+    print_L(Tail, Ncount).
+
+
+print_L([Head|Tail], 2) :-
+    write("                                                    "),
+    write(Head),
+    nl,
+    nl,
+    Ncount is 2,
+    print_L(Tail, Ncount).
+
+
