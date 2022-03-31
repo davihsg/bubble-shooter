@@ -106,21 +106,23 @@ matrix_to_str([Head | Tail], Str) :-
     string_concat(Head, NextStr, Str).
 
 print_menu():-                                                                                                                           
-    L1 = "Commands: A, D, SPACE",
-    L2 = "Press Enter to start the game",
-    L3 = "########",
-    L4 = "########",
-
+    L1 = "Commands: A, D, SPACE               |",
+    L2 = "Press Enter to start the game           |",
+    L3 = "Bubble                       |",
+    L4 = "Shooter                      |",
+    L0 = "-----------------------------------------------------------------------------------------------------------------------",
+    L6 = "----------------------------------------------------(⌐▨_▨)-------------------------------------------------------------",
 
     List = [L1, L2, L3, L4],
     
     nl, nl, nl, nl,
-    print_L(List, 0).
-    
+    write(L0), nl,
+    print_L(List, 0),
+    write(L6), nl, nl.
 print_L([], _).
 
 print_L([Head|Tail], 0) :-
-    write("                                             "),
+    write("                             |               "),
     write(Head),
     nl,
     nl,
@@ -129,7 +131,7 @@ print_L([Head|Tail], 0) :-
 
 
 print_L([Head|Tail], 1) :-
-    write("                                         "),
+    write("                             |           "),
     write(Head),
     nl,
     nl,
@@ -138,7 +140,7 @@ print_L([Head|Tail], 1) :-
 
 
 print_L([Head|Tail], 2) :-
-    write("                                                    "),
+    write("                             |                      "),
     write(Head),
     nl,
     nl,
