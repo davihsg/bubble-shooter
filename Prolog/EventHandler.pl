@@ -3,10 +3,15 @@
 handleEvent(menu, Shooter, OnShoot, NewGameState, _, _) :-
     get_single_char(Key),
 
+    write("Key: "),
+    write(Key),
+    nl,
+
     (
-        start(Key) -> NewGameState is "game";
-        NewGameState is "menu"
-    ).
+        start(Key) -> NewGameState = game;
+        NewGameState = menu
+    ),
+    write(NewGameState).
 
 handleEvent(game, Shooter, OnShoot, _, NewShooter, NewOnShoot) :-
     get_single_char(Key),
@@ -14,6 +19,6 @@ handleEvent(game, Shooter, OnShoot, _, NewShooter, NewOnShoot) :-
     (
         right(Key) -> rotate(1, Shooter, NewShooter);
         left(Key) -> rotate(-1, Shooter, NewShooter);
-        shoot(Key), OnShoot = 0 -> NewOnShoot is 1;
-        NewShooter is Shooter, NewOnShoot is OnShoot
+        shoot(Key), OnShoot = false -> NewOnShoot = true;
+        NewShooter is Shooter, NewOnShoot = OnShoot
     ).
