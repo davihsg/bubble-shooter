@@ -9,6 +9,6 @@ render(menu, _, _, _, _) :-
 render(game, Bubbles, Shooter, OnShoot, FallenBubbles) :- 
         duplicate_(Aux),!,
         renderM(Bubbles, Aux, Matrix),
-        renderFB(FallenBubbles, NewMatrix, FinalMatrix),
-        renderShooter(Shooter, OnShoot, Matrix, NewMatrix),
+        renderFB(FallenBubbles, Matrix, NewMatrix),
+        renderShooter(Shooter, OnShoot, NewMatrix, FinalMatrix),
         nl, print_to_str(FinalMatrix).
