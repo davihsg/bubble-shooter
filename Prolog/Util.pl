@@ -107,7 +107,10 @@ renderShooter([[X, Y], [[A, B], Color]], OnShoot, Matrix, Ans14):-
     getMatrix(0, Y2, X4, '|', Ans13, Ans14).
 
 getMatrix(_,_,_,_,[],[]).
+getMatrix(YY, Y, _, _, Matrix, Matrix):- YY > Y.
 getMatrix(YY, Y, X, Carac, [Head|Tail], Matrix):-
+    YY =< Y,
+
     (
         YY =:= Y -> getLine(0,X,Carac, Head, NewLine);
                 NewLine = Head
@@ -116,9 +119,10 @@ getMatrix(YY, Y, X, Carac, [Head|Tail], Matrix):-
     getMatrix(NewYY, Y, X, Carac, Tail, NewMatrix),
     append([NewLine], NewMatrix, Matrix).
 
-
 getLine(_,_,_,[],[]).
+getLine(XX, X, _, Linha, Linha):- XX > X.
 getLine(XX, X, Carac, [Head|Tail], Linha):-
+        XX =< X,
         NewXX is XX+1,
 
         getLine(NewXX, X, Carac, Tail, NewLine),
