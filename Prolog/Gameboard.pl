@@ -5,42 +5,37 @@
 :-style_check(-discontiguous).
 :-style_check(-singleton).
 
-play(menu, Bubbles, Shooter, OnShoot, Time) :-
-    sleep(1),
-    render(menu, _, _, _),
+play(menu, _, _, _, _) :-
+    render(menu, _, _, _, _),
     
     handleEvent(menu, _, _, NewGameState, _, _),
 
-    play(NewGameState, [], [], false, 0).
+    play(NewGameState, [], [], false, []).
 
-play(game, [], [], false, 0) :-
-    sleep(1),
+play(game, [], [], false, []) :-
+
     initialBubbles(NewBubbles),
     initialShooter(NewShooter),
 
-    play(game, NewBubbles, NewShooter, false, 0).
+    play(game, NewBubbles, NewShooter, false, []).
 
-play(game, Bubbles, Shooter, OnShoot, Time) :-
+play(game, Bubbles, Shooter, OnShoot, FallenBubbles) :-
     sleep(1),
 
     % Rederiza a tela
-    render(game, Bubbles, Shooter, OnShoot),
-
-    % Incrementa o tempo
-    NewTime is Time + 1,
+    render(game, Bubbles, Shooter, OnShoot, FallenBubbles),
 
     % Recebe uma entrada
     handleEvent(game, Shooter, OnShoot, _, NewShooter, NewOnShoot),
 
     % Atualiza o shooter 
-    updateShooter(Bubbles, NewShooter, NewOnShoot, NewBubbles, FinalShooter, FinalOnShoot),
+    updateShooter(Bubbles, NewShooter, FallenBubbles, NewOnShoot, NewBubbles, FinalShooter, NewFallenBubbles, FinalOnShoot),
 
     % Atualiza a posicao das bolhas
-    %updateBubbles(NewBubbles, FinalBubbles, NewTime),
-    FinalBubbles = NewBubbles,
+    updateFallenBubbles(NewFallenBubbles, FinalFallenBubbles),
 
     % Verifica se o jogo acabou
-    checkGameOver(FinalBubbles, NewGameState),
+    checkGameOver(NewBubbles, NewGameState),
     
     % Continua o jogo
-    play(NewGameState, FinalBubbles, FinalShooter, FinalOnShoot, NewTime).
+    play(NewGameState, NewBubbles, FinalShooter, FinalOnShoot, FinalFallenBubbles).

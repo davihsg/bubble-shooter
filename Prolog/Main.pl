@@ -4,4 +4,4 @@
 :-style_check(-singleton).
 
 main :-
-    play(menu, [], [], 0, 0).
+    play(menu, _, _, _, _).
