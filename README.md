@@ -92,7 +92,7 @@ $ sudo apt-get install swi-prolog
 ```
 
 ## Executando a aplicação
-- Para melhor experiênica recomenda-se que as dimensões do terminal sejam no mínimo 96 x 30.
+- Para melhor experiênica recomenda-se que as dimensões do terminal sejam no mínimo 100 x 35.
   
 - Entre na pasta de Prolog:
 

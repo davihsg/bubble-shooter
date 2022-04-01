@@ -1,3 +1,6 @@
+:-style_check(-discontiguous).
+:-style_check(-singleton).
+
 updateShooter(Bubbles, Shooter, false, Bubbles, Shooter, false).
 
 updateShooter(Bubbles, [Pos, Shoot], true, NewBubbles, [Pos, FinalShoot], NewOnShoot):-

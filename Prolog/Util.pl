@@ -1,4 +1,6 @@
 :- include('Assets.pl').
+:-style_check(-discontiguous).
+:-style_check(-singleton).
 
 rightKey(100).
 rightKey(67).

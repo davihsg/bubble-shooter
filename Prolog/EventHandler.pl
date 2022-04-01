@@ -1,4 +1,6 @@
 :- include('Util.pl').
+:-style_check(-discontiguous).
+:-style_check(-singleton).
 
 handleEvent(menu, _, _, NewGameState, _, _) :-
     get_single_char(Key),

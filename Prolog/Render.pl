@@ -1,5 +1,7 @@
 :- include('Util.pl').
 :- include('Assets.pl').
+:-style_check(-discontiguous).
+:-style_check(-singleton).
 
 render(menu, _, _, _) :-
     print_menu().

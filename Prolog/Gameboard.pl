@@ -2,6 +2,8 @@
 :- include('Render.pl').
 :- include('Util.pl').
 :- include('Update.pl').
+:-style_check(-discontiguous).
+:-style_check(-singleton).
 
 play(menu, Bubbles, Shooter, OnShoot, Time) :-
     sleep(1),
