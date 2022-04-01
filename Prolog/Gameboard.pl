@@ -13,15 +13,12 @@ play(menu, Bubbles, Shooter, OnShoot, Time) :-
 
 play(game, [], [], false, 0) :-
     sleep(1),
-    
     initialBubbles(NewBubbles),
-
     initialShooter(NewShooter),
 
     play(game, NewBubbles, NewShooter, false, 0).
 
 play(game, Bubbles, Shooter, OnShoot, Time) :-
-    %sleep(1),
     
     % Rederiza a tela
     render(game, Bubbles, Shooter),

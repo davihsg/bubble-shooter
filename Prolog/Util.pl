@@ -1,3 +1,5 @@
+:- include('Assets.pl').
+
 rightKey(100).
 rightKey(67).
 
@@ -14,7 +16,7 @@ initialShooter([[47, 26], Bubble]) :-
 
 initialShoot([[47, 26], #]).
 
-initialBubbles([[[47, 5], #], [[52, 5], #]]).
+initialBubbless([[[47, 5], #], [[52, 5], #]]).
 
 leftLimit(2).
 
@@ -40,8 +42,77 @@ rightLimit(97).
 % | H || O || H || X || H || X || H || X || X || X || O || X || X || O || O || H || O || O || O | 
 % |---||---||---||---||---||---||---||---||---||---||---||---||---||---||---||---||---||---||---|').
 
-initialBubbless([[[2, 1], 'H'], [[7, 1], 'O'], [[12, 1], 'X'], [[17, 1], 'X'], [[22, 1], 'H'], [[27, 1], 'O'], [[32, 1], 'O'], [[37, 1], 'X'], [[42, 1], 'X'], [[47, 1], 'O'], [[52, 1], 'O'], [[57, 1], 'H'], [[62, 1], 'X'], [[67, 1], 'H'], [[72, 1], 'X'], [[77, 1], 'X'], [[82, 1], 'H'], [[87, 1], 'O'], [[92, 1], 'X'], [[2, 4], 'X'], [[7, 4], 'H'], [[12, 4], 'O'], [[17, 4], 'X'], [[22, 4], 'X'], [[27, 4], 'O'], [[32, 4], 'O'], [[37, 4], 'H'], [[42, 4], 'X'], [[47, 4], 'X'], [[52, 4], 'H'], [[57, 4], 'O'], [[62, 4], 'O'], [[67, 4], 'H'], [[72, 4], 'H'], [[77, 4], 'X'], [[82, 4], 'H'], [[87, 4], 'H'], [[92, 4], 'X'], [[2, 7], 'H'], [[7, 7], 'O'], [[12, 7], 'H'], [[17, 7], 'O'], [[22, 7], 'H'], [[27, 7], 'X'], [[32, 7], 'H'], [[37, 7], 'X'], [[42, 7], 'X'], [[47, 7], 'H'], [[52, 7], 'H'], [[57, 7], 'O'], [[62, 7], 'H'], [[67, 7], 'X'], [[72, 7], 'X'], [[77, 7], 'O'], [[82, 7], 'H'], [[87, 7], 'O'], [[92, 7], 'H'], [[2, 10], 'X'], [[7, 10], 'O'], [[12, 10], 'H'], [[17, 10], 'X'], [[22, 10], 'X'], [[27, 10], 'X'], [[32, 10], 'H'], [[37, 10], 'O'], [[42, 10], 'H'], [[47, 10], 'H'], [[52, 10], 'O'], [[57, 10], 'H'], [[62, 10], 'O'], [[67, 10], 'H'], [[72, 10], 'H'], [[77, 10], 'X'], [[82, 10], 'H'], [[87, 10], 'O'], [[92, 10], 'X'], [[2, 13], 'X'], [[7, 13], 'O'], [[12, 13], 'O'], [[17, 13], 'X'], [[22, 13], 'H'], [[27, 13], 'O'], [[32, 13], 'H'], [[37, 13], 'X'], [[42, 13], 'O'], [[47, 13], 'X'], [[52, 13], 'X'], [[57, 13], 'H'], [[62, 13], 'X'], [[67, 13], 'X'], [[72, 13], 'X'], [[77, 13], 'X'], [[82, 13], 'H'], [[87, 13], 'O'], [[92, 13], 'O'], [[2, 16], 'H'], [[7, 16], 'O'], [[12, 16], 'H'], [[17, 16], 'X'], [[22, 16], 'H'], [[27, 16], 'X'], [[32, 16], 'H'], [[37, 16], 'X'], [[42, 16], 'X'], [[47, 16], 'X'], [[52, 16], 'O'], [[57, 16], 'X'], [[62, 16], 'X'], [[67, 16], 'O'], [[72, 16], 'O'], [[77, 16], 'H'], [[82, 16], 'O'], [[87, 16], 'O'], [[92, 16], 'O']]
-).
+initialBubbles([[[2, 1], 'H'], [[7, 1], 'O'], [[12, 1], 'X'], [[17, 1], 'X'], [[22, 1], 'H'], [[27, 1], 'O'], [[32, 1], 'O'], [[37, 1], 'X'], [[42, 1], 'X'], [[47, 1], 'O'], [[52, 1], 'O'], [[57, 1], 'H'], [[62, 1], 'X'], [[67, 1], 'H'], [[72, 1], 'X'], [[77, 1], 'X'], [[82, 1], 'H'], [[87, 1], 'O'], [[92, 1], 'X'], [[2, 4], 'X'], [[7, 4], 'H'], [[12, 4], 'O'], [[17, 4], 'X'], [[22, 4], 'X'], [[27, 4], 'O'], [[32, 4], 'O'], [[37, 4], 'H'], [[42, 4], 'X'], [[47, 4], 'X'], [[52, 4], 'H'], [[57, 4], 'O'], [[62, 4], 'O'], [[67, 4], 'H'], [[72, 4], 'H'], [[77, 4], 'X'], [[82, 4], 'H'], [[87, 4], 'H'], [[92, 4], 'X'], [[2, 7], 'H'], [[7, 7], 'O'], [[12, 7], 'H'], [[17, 7], 'O'], [[22, 7], 'H'], [[27, 7], 'X'], [[32, 7], 'H'], [[37, 7], 'X'], [[42, 7], 'X'], [[47, 7], 'H'], [[52, 7], 'H'], [[57, 7], 'O'], [[62, 7], 'H'], [[67, 7], 'X'], [[72, 7], 'X'], [[77, 7], 'O'], [[82, 7], 'H'], [[87, 7], 'O'], [[92, 7], 'H'], [[2, 10], 'X'], [[7, 10], 'O'], [[12, 10], 'H'], [[17, 10], 'X'], [[22, 10], 'X'], [[27, 10], 'X'], [[32, 10], 'H'], [[37, 10], 'O'], [[42, 10], 'H'], [[47, 10], 'H'], [[52, 10], 'O'], [[57, 10], 'H'], [[62, 10], 'O'], [[67, 10], 'H'], [[72, 10], 'H'], [[77, 10], 'X'], [[82, 10], 'H'], [[87, 10], 'O'], [[92, 10], 'X'], [[2, 13], 'X'], [[7, 13], 'O'], [[12, 13], 'O'], [[17, 13], 'X'], [[22, 13], 'H'], [[27, 13], 'O'], [[32, 13], 'H'], [[37, 13], 'X'], [[42, 13], 'O'], [[47, 13], 'X'], [[52, 13], 'X'], [[57, 13], 'H'], [[62, 13], 'X'], [[67, 13], 'X'], [[72, 13], 'X'], [[77, 13], 'X'], [[82, 13], 'H'], [[87, 13], 'O'], [[92, 13], 'O'], [[2, 16], 'H'], [[7, 16], 'O'], [[12, 16], 'H'], [[17, 16], 'X'], [[22, 16], 'H'], [[27, 16], 'X'], [[32, 16], 'H'], [[37, 16], 'X'], [[42, 16], 'X'], [[47, 16], 'X'], [[52, 16], 'O'], [[57, 16], 'X'], [[62, 16], 'X'], [[67, 16], 'O'], [[72, 16], 'O'], [[77, 16], 'H'], [[82, 16], 'O'], [[87, 16], 'O'], [[92, 16], 'O']]).
+
+print_to_str([]).
+print_to_str([Head|Tail]):-
+    % write('sadadsa'), nl,
+    print_line(Head), nl,
+    % write(Head), nl,
+    print_to_str(Tail).
+
+print_line([]).
+print_line([Head|Tail]):-
+    write(Head), 
+    print_line(Tail).
+    
+renderM([],Mat,Mat).
+renderM([Head|Tail], Mat, Ans):-
+            % write(Head), nl,              
+            renderBubble(Head, Mat, NewAns),
+            % print_to_str(NewAns), nl, 
+            renderM(Tail, NewAns, Ans).
+
+renderBubble([[X,Y],Carac], Matrix, Ans14):-
+        X1 is X + 1,X2 is X - 1, X3 is X + 2, X4 is X - 2, 
+        Y1 is Y + 1,Y2 is Y - 1,
+        getMatrix(0, Y, X, Carac, Matrix, Ans),        
+        getMatrix(0, Y1, X, '-', Ans, Ans1),
+        getMatrix(0, Y2, X, '-', Ans1, Ans2),
+        getMatrix(0, Y, X1, ' ', Ans2, Ans3),
+        getMatrix(0, Y1, X1, '-', Ans3, Ans4),
+        getMatrix(0, Y2, X1, '-', Ans4, Ans5),
+        getMatrix(0, Y, X2, ' ', Ans5, Ans6),
+        getMatrix(0, Y1, X2, '-', Ans6, Ans7),
+        getMatrix(0, Y2, X2, '-', Ans7, Ans8),
+        getMatrix(0, Y, X3, '|', Ans8, Ans9),
+        getMatrix(0, Y1, X3, '|', Ans9, Ans10),
+        getMatrix(0, Y2, X3, '|', Ans10, Ans11),
+        getMatrix(0, Y, X4, '|', Ans11, Ans12),
+        getMatrix(0, Y1, X4, '|', Ans12, Ans13),
+        getMatrix(0, Y2, X4, '|', Ans13, Ans14).
+
+
+getMatrix(_,_,_,_,[],[]).
+getMatrix(YY, Y, X, Carac, [Head|Tail], Matrix):-
+    (
+        YY =:= Y -> getLine(0,X,Carac, Head, NewLine);
+                NewLine = Head
+    ), 
+    NewYY is YY+1,
+    getMatrix(NewYY, Y, X, Carac, Tail, NewMatrix),
+    append([NewLine], NewMatrix, Matrix).
+
+
+getLine(_,_,_,[],[]).
+getLine(XX, X, Carac, [Head|Tail], Linha):-
+        NewXX is XX+1,
+
+        getLine(NewXX, X, Carac, Tail, NewLine),
+        (
+            XX =:= X -> append([Carac], NewLine, Linha);
+                        append([Head], NewLine, Linha)
+        ).
+
+print_matrix(Matrix) :-
+    matrix_to_str(Matrix, Str),
+    write(Str).
+
+matrix_to_str([], "").
+
+matrix_to_str([Head | Tail], Str) :-
+    matrix_to_str(Tail, NextStr),
+    string_concat(Head, NextStr, Str).
 
 remove_list([], _, []).
 remove_list([X|Tail], L2, Result):- member(X, L2), !, remove_list(Tail, L2, Result). 
@@ -151,90 +222,5 @@ print_L([Head|Tail], 2) :-
     Ncount is 2,
     print_L(Tail, Ncount).
 
-
-/*
-convertToFloat(ValorInteiro,ValorFloat):-
-    ValorFloat is float(ValorInteiro).
-
-getAngle(Tuple,Angle):-
-    Tuple = (X,Y),
-    Resp is 0,
-    ((X,_) -> Angle is 0; Angle is -((atan(Y,X) * 180/pi) + adjust(Tuple,Resp))).
-
-adjust(Angle,NewAngle):-
-    (Angle == 0 -> NewAngle is 0);
-    (Angle < 0 -> NewAngle is 90; NewAngle is 270).
-
-randomBubble(Float1,Float2,Int,Bubble)
-    (Float1,Float2,Int) = Bubble {
-        BubblePos = (Float1,Float2),
-        BubbleCaractere = randomCaracteres(Int)
-    }.
-
-randomCaracteres(Inteiro,Caractere):- 
-    carac = rem (randomNumber(1.5)*z) 5
-    (carac is 1 -> Caractere = '$');
-    (carac is 2 -> Caractere = '#');
-    (carac is 3 -> Caractere = '*');
-    (carac is 4 -> Caractere = '@'; Caractere = '%').
-
-randomNumber(Tupla,NumeroAleatorio):-
-    Tupla = (X,Y),
-    NumeroAleatorio = unsafePerformIO(randomRIO (a,b)). //rever essa linha
-
-newShoot(Float,Shoot):-
-    Shoot = {
-        BubbleShoot = randomBubble(0,-260,round(T)),
-        ShootVel = (0,0).
-    }.
-
-getInitialShooter(Shooter):-
-    Shooter = {
-        ShooterPos   = (0, -300)
-        , ShooterAngle = (0, 0)
-        , OnShoot      = False
-        , NextShoot    = NewShoot
-    }.
-
-getMapBubbles(MapBubbles):-
-    MapBubbles = (generateMatrix (-320) 370 3 0) ++ getEndBubbles('').
-
-getEndBubbles(LinesBubbles):-
-    LinesBubbles = (generateEndLine (-320) 410) ++ (generateEndLine((-320),450)).
-
-generateEndLine(X,Y,[Linha]):-
-    generateEndLine((X + 40), Y,Line),
-    B is Bubble({bubblePos = (x, y), bubbleColor = black}),
-    concat([B],Line,List)
-    (x > 320 -> [Linha] is []; Linha -> Line )
-
-generateMatrix(X,Y,Z,T,[Matrix]):-
-    generateLine(X+(15 * T),Y,(Z+7),S1),
-    generateMatrix(X,(Y-40),(Z+7),T,S2),
-    generateLine(X+(15 * T),Y,Z,S3),
-    concat(S1,S2,Atom),
-    (y =< 120 -> [Matrix] is S3 ; [Matrix] is Atom).
-
-
-generateLine(X,Y,Z,[Matrix]):-
-    randomBubble(X,Y,Z,Rb),
-    generateLine((X + 40), Y,(Z+7),Gl),
-    concat(Rb,Gl,Line),
-    (X > 120 -> [Matrix] is []; [Matrix] is Line).
-
-
-getVel((X,Y),Tuple):-
-    K is sqrt((X*X) + (Y * Y)),
-    Tuple is (X/K, Y/K).
-
-getMatriz(x + 1, y, xx, yy, Tail, NewMatrix),
-
-(
-    x =:= xx, y =:= yy ->
-        append([Caracter], NewMatrix, FinalMatrix);
-    
-    append([Head], NewMatrix, FinalMatrix);
-)
-*/
 
 
