@@ -13,7 +13,7 @@ shootKey(32).
 startKey(13).
 startKey(10).
 
-initialShooter([[32, 28], Bubble]) :-
+initialShooter([[32, 31], Bubble]) :-
     random(0, 3, Flag),
     initialShoot(Bubble, Flag).
 
