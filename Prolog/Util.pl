@@ -11,10 +11,10 @@ shootKey(32).
 startKey(13).
 startKey(10).
 
-initialShooter([[2, 44], Bubble]) :-
+initialShooter([[32, 28], Bubble]) :-
     initialShoot(Bubble).
 
-initialShoot([[47, 26], 'H']).
+initialShoot([[47, 26], 'X']).
 
 leftLimit(2).
 
@@ -177,7 +177,11 @@ isHit([A, B], [C, D]) :-
     DeltaX =< DisH,
     DeltaY =< DisV,
 
-    nnotEquals(DeltaX, DisH, DeltaY, DisV).
+    abs(DeltaX - DisH, Flag1),
+    abs(DeltaY - DisV, Flag2),
+
+    Flag1 + Flag2 > 0.
+    % nnotEquals(DeltaX, DisH, DeltaY, DisV).
 
 equals(A, A).
 
