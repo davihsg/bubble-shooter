@@ -3,7 +3,6 @@ updateShooter(Bubbles, Shooter, false, Bubbles, Shooter, false).
 updateShooter(Bubbles, [Pos, Shoot], true, NewBubbles, [Pos, FinalShoot], NewOnShoot):-
 
     updateShoot(Shoot, NewShoot),
-    write("Shooting!"), nl,
 
     collision(Bubbles, NewShoot, NewBubbles, FinalShoot, NewOnShoot).
 
@@ -15,8 +14,6 @@ updateShoot([[A, B], Color], [[A, NewB], Color]):-
 collision(Bubbles, Shoot, NewBubbles, NewShoot, NewOnShoot):-
 
     collided(Bubbles, Shoot, Collided),
-
-    write("Collided? "), write(Collided), nl,
 
     (
         Collided = true -> handleCollision(Bubbles, Shoot, NewBubbles, NewShoot, NewOnShoot);
@@ -39,15 +36,9 @@ handleCollision(Bubbles, Shoot, FinalBubbles, NewShoot, false):-
     adjacentSameColor(Bubbles, Shoot, AdjacentList),
     remove_list(Bubbles, AdjacentList, NewBubbles),
 
-    write("AdjacentList: "), write(AdjacentList), nl,
-
     juntas(NewBubbles, Shoot, AdjacentList, DeleteBubbles),
 
     size(DeleteBubbles, Size),
-
-    write("DeleteBubbles: "), write(DeleteBubbles), nl,
-
-    write("Size: "), write(Size), nl, 
 
     (
         Size < 3 -> append(Bubbles, [Shoot], FinalBubbles);
@@ -56,10 +47,7 @@ handleCollision(Bubbles, Shoot, FinalBubbles, NewShoot, false):-
 
     initialShoot(NewShoot).
 
-% juntas(_, _, _, []).
-
 juntas(_, Bubble, [], [Bubble]).
-% juntas([], _, _, []).
 juntas(Bubbles, Bubble, [Head|Tail], DeleteBubbles) :-
     % Head's adjacent list 
     adjacentSameColor(Bubbles, Head, AdjacentList),
@@ -78,9 +66,3 @@ juntas(Bubbles, Bubble, [Head|Tail], DeleteBubbles) :-
 
     % Merge destroyed bubbles from head and the rest of current adjacent bubble
     union(NewDeleteBubbles1, NewDeleteBubbles2, DeleteBubbles).
-
-deletar(_, Bubbles, Bubbles) :-
-    NewBubbles = Bubbles.
-
-updateBubbles(Bubbles, NewBubbles, Time) :-
-    NewBubbles = Bubbles.

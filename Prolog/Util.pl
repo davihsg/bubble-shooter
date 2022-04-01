@@ -11,12 +11,10 @@ shootKey(32).
 startKey(13).
 startKey(10).
 
-initialShooter([[47, 26], Bubble]) :-
+initialShooter([[2, 44], Bubble]) :-
     initialShoot(Bubble).
 
-initialShoot([[47, 26], #]).
-
-initialBubbless([[[47, 5], #], [[52, 5], #]]).
+initialShoot([[47, 26], 'H']).
 
 leftLimit(2).
 
@@ -46,9 +44,7 @@ initialBubbles([[[2, 1], 'H'], [[7, 1], 'O'], [[12, 1], 'X'], [[17, 1], 'X'], [[
 
 print_to_str([]).
 print_to_str([Head|Tail]):-
-    % write('sadadsa'), nl,
     print_line(Head), nl,
-    % write(Head), nl,
     print_to_str(Tail).
 
 print_line([]).
@@ -57,10 +53,8 @@ print_line([Head|Tail]):-
     print_line(Tail).
     
 renderM([],Mat,Mat).
-renderM([Head|Tail], Mat, Ans):-
-            % write(Head), nl,              
+renderM([Head|Tail], Mat, Ans):-           
             renderBubble(Head, Mat, NewAns),
-            % print_to_str(NewAns), nl, 
             renderM(Tail, NewAns, Ans).
 
 renderBubble([[X,Y],Carac], Matrix, Ans14):-
@@ -82,6 +76,28 @@ renderBubble([[X,Y],Carac], Matrix, Ans14):-
         getMatrix(0, Y1, X4, '|', Ans12, Ans13),
         getMatrix(0, Y2, X4, '|', Ans13, Ans14).
 
+renderShooter([[X, Y], [[A, B], Color]], OnShoot, Matrix, Ans14):-
+
+    X1 is X + 1,X2 is X - 1, X3 is X + 2, X4 is X - 2, 
+    Y1 is Y + 1,Y2 is Y - 1,
+    (
+        OnShoot = true -> getMatrix(0, B, A, Color, Matrix, Ans);
+        getMatrix(0, Y, X, Color, Matrix, Ans)
+    ),
+    getMatrix(0, Y1, X, '-', Ans, Ans1),
+    getMatrix(0, Y2, X, '-', Ans1, Ans2),
+    getMatrix(0, Y, X1, ' ', Ans2, Ans3),
+    getMatrix(0, Y1, X1, '-', Ans3, Ans4),
+    getMatrix(0, Y2, X1, '-', Ans4, Ans5),
+    getMatrix(0, Y, X2, ' ', Ans5, Ans6),
+    getMatrix(0, Y1, X2, '-', Ans6, Ans7),
+    getMatrix(0, Y2, X2, '-', Ans7, Ans8),
+    getMatrix(0, Y, X3, '|', Ans8, Ans9),
+    getMatrix(0, Y1, X3, '|', Ans9, Ans10),
+    getMatrix(0, Y2, X3, '|', Ans10, Ans11),
+    getMatrix(0, Y, X4, '|', Ans11, Ans12),
+    getMatrix(0, Y1, X4, '|', Ans12, Ans13),
+    getMatrix(0, Y2, X4, '|', Ans13, Ans14).
 
 getMatrix(_,_,_,_,[],[]).
 getMatrix(YY, Y, X, Carac, [Head|Tail], Matrix):-
@@ -158,8 +174,20 @@ isHit([A, B], [C, D]) :-
     abs(A - C, DeltaX),
     abs(B - D, DeltaY),
 
-    DeltaY =< DisV, 
-    DeltaX =< DisH.
+    DeltaX =< DisH,
+    DeltaY =< DisV,
+
+    nnotEquals(DeltaX, DisH, DeltaY, DisV).
+
+equals(A, A).
+
+notEquals(A, B):-
+    equals(A, B), !,
+    fail.
+
+notEquals(A, B).
+
+nnotEquals(A, B, X, Y) :- notEquals(A, B), notEquals(X, Y).
 
 size([], 0).
 
