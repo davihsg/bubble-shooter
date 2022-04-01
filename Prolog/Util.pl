@@ -12,9 +12,14 @@ startKey(13).
 startKey(10).
 
 initialShooter([[32, 28], Bubble]) :-
-    initialShoot(Bubble).
+    random(0, 3, Flag),
+    initialShoot(Bubble, Flag).
 
-initialShoot([[47, 26], 'X']).
+initialShoot([[47, 26], 'X'], 0).
+
+initialShoot([[47, 26], 'H'], 1).
+
+initialShoot([[47, 26], 'O'], 2).
 
 leftLimit(2).
 

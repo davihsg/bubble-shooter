@@ -44,8 +44,8 @@ handleCollision(Bubbles, Shoot, FinalBubbles, NewShoot, false):-
         Size < 3 -> append(Bubbles, [Shoot], FinalBubbles);
         remove_list(Bubbles, DeleteBubbles, FinalBubbles)
     ),
-
-    initialShoot(NewShoot).
+    random(0, 3, Flag),
+    initialShoot(NewShoot, Flag).
 
 juntas(_, Bubble, [], [Bubble]).
 juntas(Bubbles, Bubble, [Head|Tail], DeleteBubbles) :-
