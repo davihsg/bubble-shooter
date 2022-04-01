@@ -14,21 +14,25 @@ play(menu, Bubbles, Shooter, OnShoot, Time) :-
 
 play(game, [], [], false, 0) :-
     sleep(1),
-    nl, write("Zerou"), nl, 
 
-    render(game, NewBubbles, NewShooter),
-    
     initialBubbles(NewBubbles),
-
+    % renderM(NewBubbles, Matrix),
+    % write(Matrix),
     initialShooter(NewShooter),
 
     play(game, NewBubbles, NewShooter, false, 0).
 
 play(game, Bubbles, Shooter, OnShoot, Time) :-
     sleep(1),
+
+    nl, write("Received"), nl,
+    write(Bubbles), nl,
+    write(Shooter), nl,
+    write(OnShoot), nl,
+    write(Time), nl,
     
     % Rederiza a tela
-    render(game, FinalBubbles, FinalShooter),
+    render(game, Bubbles, Shooter), !,
 
     nl, write("Received"), nl,
     write(Bubbles), nl,
