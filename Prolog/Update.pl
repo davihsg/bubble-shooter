@@ -1,39 +1,32 @@
 updateShooter(Bubbles, Shooter, false, Bubbles, Shooter, false).
 
-updateShooter(Bubbles, [Pos, Shoot], true, NewBubbles, [Pos, NewShoot], NewOnShoot):-
-    updateShoot(true, Shoot, NewShoot),
+updateShooter(Bubbles, [Pos, Shoot], true, NewBubbles, [Pos, FinalShoot], NewOnShoot):-
 
-    write("New shoot "), write(NewShoot), nl,
+    updateShoot(Shoot, NewShoot),
 
-    NewBubbles = Bubbles, 
-    NewOnShoot = true.
+    collision(Bubbles, NewShoot, NewBubbles, FinalShoot, NewOnShoot).
 
-    %collision(Bubbles, NewShoot, OnShoot, NewBubbles, FinalShoot, NewOnShoot).
+updateShoot([[A, B], Color], [[A, NewB], Color]):-
+    distanciaVertical(Dis),
 
-updateShoot(true, [[A, B], Color], [[A, NewB], Color]):-
-    distancia(Dis),
+    NewB is B - Dis.
 
-    NewB is B + Dis.
-
-updateShoot(false, Shoot, Shoot).
-
-collision(Bubbles, Shoot, false, Bubbles, Shoot, false).
-
-collision(Bubbles, Shoot, true, NewBubbles, NewShoot, NewOnShoot,):-
+collision(Bubbles, Shoot, NewBubbles, NewShoot, NewOnShoot):-
 
     collided(Bubbles, Shoot, Collided),
 
     (
-        Collided = false -> handleCollision(Bubbles, Shoot, NewBubbles, NewShoot, NewOnShoot);
+        Collided = true -> handleCollision(Bubbles, Shoot, NewBubbles, NewShoot, NewOnShoot);
         
         NewBubbles = Bubbles,
         NewShoot = Shoot,
-        NewOnShoot = OnShoot
+        NewOnShoot = true
     ).
 
 collided([], _, false).
 
 collided([[[C, D], _]|Tail], [[A, B], Color], Collided) :-
+
     (
         isHit([A, B], [C, D]) -> Collided = true;
         collided(Tail, [[A, B], Color], Collided)
@@ -51,8 +44,10 @@ handleCollision(Bubbles, Shoot, NewBubbles, NewShoot, false):-
 
     initialShoot(NewShoot).
 
-deletar([], _, NewBubbles).
-deletar(_, [], NewBubbles).
+juntas(_, _, []).
+
+deletar(_, Bubbles, Bubbles) :-
+    NewBubbles = Bubbles.
 
 updateBubbles(Bubbles, NewBubbles, Time) :-
     NewBubbles = Bubbles.

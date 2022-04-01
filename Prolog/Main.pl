@@ -1,4 +1,4 @@
-%:- initialization(main).
+:- initialization(main).
 :- include('Gameboard.pl').
 
 main :-

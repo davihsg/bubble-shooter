@@ -9,18 +9,18 @@ shootKey(32).
 startKey(13).
 startKey(10).
 
-initialShooter([[350, -350], Bubble]) :-
+initialShooter([[47, 26], Bubble]) :-
     initialShoot(Bubble).
 
-initialShoot([[350, -350], #]).
+initialShoot([[47, 26], #]).
 
-initialBubbless([[362, -320], #]).
+initialBubbles([[[47, 5], #]]).
 
-leftLimit(0).
+leftLimit(2).
 
-rightLimit(600).
+rightLimit(97).
 
-initialBubbles('
+initialBubbless('
                         |---||---||---||---||---||---||---||---||---||---||---||---||---||---||---||---||---||---||---|
                         | H || O || X || X || H || O || O || X || X || O || O || H || X || H || X || X || H || O || X |
                         |---||---||---||---||---||---||---||---||---||---||---||---||---||---||---||---||---||---||---|
@@ -44,7 +44,7 @@ checkGameOver([], menu).
 checkGameOver(_, game).
 
 moveLeft([[X, Y], Shoot], [[NewX, Y], Shoot]):-
-    distancia(Dis),
+    distanciaHorizontal(Dis),
 
     (
         leftLimit(X) -> NewX is X;
@@ -52,17 +52,18 @@ moveLeft([[X, Y], Shoot], [[NewX, Y], Shoot]):-
     ).
 
 moveRight([[X, Y], Shoot], [[NewX, Y], Shoot]):-
-    distancia(Dis),
+    distanciaHorizontal(Dis),
 
     (
         rightLimit(X) -> NewX is X;
         NewX is X + Dis
     ).
 
-distancia(3).
+distanciaVertical(3).
+distanciaHorizontal(5).
 
 isHit([A, B], [C, D]) :-
-    distancia(Dis),
+    distanciaVertical(Dis),
 
     abs(A - C, DeltaX),
     abs(B - D, DeltaY),
@@ -101,6 +102,7 @@ print_menu():-
     write(L0), nl,
     print_L(List, 0),
     write(L6), nl, nl.
+
 print_L([], _).
 
 print_L([Head|Tail], 0) :-
