@@ -13,8 +13,6 @@ play(menu, Bubbles, Shooter, OnShoot, Time) :-
 
 play(game, [], [], false, 0) :-
     sleep(1),
-
-    render(game, NewBubbles, NewShooter),
     
     initialBubbles(NewBubbles),
 
@@ -26,7 +24,7 @@ play(game, Bubbles, Shooter, OnShoot, Time) :-
     %sleep(1),
     
     % Rederiza a tela
-    render(game, FinalBubbles, FinalShooter),
+    render(game, Bubbles, Shooter),
 
     % Incrementa o tempo
     NewTime is Time + 1,

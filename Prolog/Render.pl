@@ -3,4 +3,7 @@
 render(menu, _, _) :-
     print_menu().
 
-render(game, _, _) :- write("Game"), nl.
+render(game, Bubbles, Shooter) :-
+    write("Game:"), nl,
+    write(Bubbles), nl,
+    write(Shooter), nl, nl.
