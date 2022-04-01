@@ -92,13 +92,15 @@ $ sudo apt-get install swi-prolog
 ```
 
 ## Executando a aplicação
-- Entre na pasta de Prolog  
+- Para melhor experiênica recomenda-se que as dimensões do terminal sejam no mínimo 96 x 30.
+  
+- Entre na pasta de Prolog:
 
 ```bash
-   $ cd prolog
+   $ cd Prolog
 ```
 
-- Execute este comando para compilar e executar o jogo
+- Execute este comando para compilar e executar o jogo:
   
  ```bash
     $ swipl -s Main.pl
